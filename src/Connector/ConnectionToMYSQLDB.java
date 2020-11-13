@@ -19,6 +19,7 @@ public class ConnectionToMYSQLDB {
         }
     public static ArrayList<ArrayList<String>> getTitles(int count) throws Exception{
         try{
+            //
             Connection con = getConnectionToRecipes();
             PreparedStatement statement = con.prepareStatement("SELECT recipe_id,ing_name FROM ingredients");
             ResultSet result = statement.executeQuery();
