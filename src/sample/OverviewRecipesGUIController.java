@@ -43,20 +43,15 @@ public class OverviewRecipesGUIController implements Initializable {
     @FXML
     public void test() {
         try{
-            for(int i = 0; i < UserIngredients.chosenIngredients.size();i++) {
-                System.out.println(UserIngredients.chosenIngredients.get(i));
-                //list2.getItems().add(UserIngredients.chosenIngredients.get(i));
-//                System.out.println(UserIngredients.chosenIngredients.get(i));
-                ImageView img = RecipePhotos.passBackImageView(UserIngredients.chosenIngredients.get(i));
-//                ImageView img2 = RecipePhotos.passBackImageView(UserIngredients.chosenIngredients.get(i));
-//                ImageView img3 = RecipePhotos.passBackImageView(UserIngredients.chosenIngredients.get(i));
-//                ImageView img4 = RecipePhotos.passBackImageView(UserIngredients.chosenIngredients.get(i));
-//
-                img.setOnMouseClicked(mouseEvent -> System.out.print("HRE"));
-                listView.getItems().add(img);
-//                listView.getItems().add(img2);
-//                listView.getItems().add(img3);
-//                listView.getItems().add(img4);
+            if(UserIngredients.chosenIngredients.size() == 0){
+                listView.getItems().add("No Recipes were found. Try adding more ingredients!");
+            }else {
+                for (int i = 0; i < UserIngredients.chosenIngredients.size(); i++) {
+                    System.out.println(UserIngredients.chosenIngredients.get(i));
+                    ImageView img = RecipePhotos.passBackImageView(UserIngredients.chosenIngredients.get(i));
+                    img.setOnMouseClicked(mouseEvent -> System.out.print("HRE"));
+                    listView.getItems().add(img);
+                }
             }
         }catch (Exception e ){
             System.out.println(e.getMessage());

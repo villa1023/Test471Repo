@@ -132,8 +132,10 @@ public class MainMenuGUIController implements Initializable {
 //        which we have passed with the ingredients from each recipe, if there's a match then we add the recipe_id to another list.
 //        That list then calls the database again, and returns the recipe_name which will then be displayed
         ArrayList<String> relevantRecipes = ORGUIContDAO.sortTitles(ingredientsObject.ingredients);
-        for(int i = 0; i < relevantRecipes.size();i++){
-            ingredientsObject.chosenIngredients.add(relevantRecipes.get(i));
+        if(relevantRecipes.size() != 0){
+            for(int i = 0; i < relevantRecipes.size();i++){
+                ingredientsObject.chosenIngredients.add(relevantRecipes.get(i));
+            }
         }
     }
         @Override

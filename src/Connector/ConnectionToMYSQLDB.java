@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class ConnectionToMYSQLDB {
         public static void main(String[] args)throws Exception{
-            getConnection();
         }
         public static int getTotalNumberRecipes() throws Exception {
             Connection con = getConnectionToRecipes();
@@ -61,21 +60,6 @@ public class ConnectionToMYSQLDB {
             return null;
         }
     }
-
-        public static Connection getConnection() throws Exception{
-            try{
-                String driver = "com.mysql.jdbc.Driver";
-                String url = "jdbc:mysql://localhost:3306/d_app"; //server can be seen as local host followed by the name of the schema
-                String username = "root"; //username goes here
-                String password = ""; //your password goes here
-                Connection connect = DriverManager.getConnection(url, username, password);
-                System.out.println("Connected!");
-                return connect;
-            }catch(Exception e){
-                System.out.println(e);
-            }
-            return null;
-        }
     public static Connection getConnectionToRecipes() throws Exception{
         try{
             String driver = "com.mysql.jdbc.Driver";
