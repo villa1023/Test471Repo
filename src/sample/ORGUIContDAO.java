@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public class ORGUIContDAO {
     public static ArrayList<String> sortTitles(ArrayList<String> ingredientList) throws Exception {
         //Get all ingredients with their corresponding recipe_id
-        ArrayList<ArrayList<String>> titles = ConnectionToMYSQLDB.getTitles();
+        int recipeCount = ConnectionToMYSQLDB.getTotalNumberRecipes();
+        ArrayList<ArrayList<String>> titles = ConnectionToMYSQLDB.getTitles(recipeCount);
         //This list will contain all the matching ingredients Id's
         ArrayList<Integer> returnList = new ArrayList<>();
         for(int i = 0; i < ingredientList.size();i++){
