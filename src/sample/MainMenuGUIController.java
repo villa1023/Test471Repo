@@ -1,17 +1,22 @@
 package sample;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class MainMenuGUIController implements Initializable {
         UserIngredients ingredientsObject = new UserIngredients();
         @FXML
@@ -33,7 +38,9 @@ public class MainMenuGUIController implements Initializable {
         @FXML
         FlowPane saucesFlowPane;
         @FXML
-        private void updateIngredients () {
+        MenuItem done1;
+        @FXML
+        public void updateIngredients () {
         ObservableList<Node> list1 = proteinFlowPane.getChildren();
         ObservableList<Node> list2 = vegFlowPane.getChildren();
         ObservableList<Node> list3 = carbsFlowPane.getChildren();
@@ -114,31 +121,59 @@ public class MainMenuGUIController implements Initializable {
         }
         clearTable();
     }
+    public void loadSecond() throws IOException {
+            try {
+                //Load second scene
+                populate();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("OverviewRecipesGUI.fxml"));
+                Parent root = loader.load();
+                //Get controller of scene2
+                OverviewRecipesGUIController scene2Controller = loader.getController();
+                //Pass whatever data you want. You can have multiple method calls here
+                scene2Controller.setRecipeObject(ingredientsObject);
+                //Show scene 2 in new window
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("iCook");
+                stage.show();
+                scene2Controller.test();
+                ((Stage)p1.getScene().getWindow()).close();
+            } catch (IOException ex) {
+                System.err.println(ex);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
     @FXML
-    public void loadSecond(ActionEvent event) throws IOException {
-        try{
-            populate();
-            //Create an object for the controller of the next scene call the objects setstage method to create the new scene, then call the close stage scene to close the window.
-            //Otherwise the window will linger.
-            OverviewRecipesGUIController cont2 = new OverviewRecipesGUIController();
-            cont2.setStage();
-            ((Stage)p1.getScene().getWindow()).close();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+    public void goBack(){
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AfterLoginGUI.fxml"));
+            Parent root = loader.load();
+            //Get controller of scene2
+            AfterLoginGUIController firstSceneController = loader.getController();
+            //Pass whatever data you want. You can have multiple method calls here
+            //Show scene 2 in new window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("iCook");
+            stage.show();
+            ((Stage)pro.getScene().getWindow()).close();
+        } catch (IOException ex) {
+            System.err.println(ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     public void populate() throws Exception {
 //        pass chosen ingredients to the sort titles method, the sort titles method then calls the database and compares the ingredients
 //        which we have passed with the ingredients from each recipe, if there's a match then we add the recipe_id to another list.
 //        That list then calls the database again, and returns the recipe_name which will then be displayed
-        ArrayList<String> relevantRecipes = ORGUIContDAO.sortTitles(ingredientsObject.ingredients);
-        if(relevantRecipes.size() != 0){
-            for(int i = 0; i < relevantRecipes.size();i++){
-                ingredientsObject.chosenIngredients.add(relevantRecipes.get(i));
-            }
-        }
+        ControllersDAO obj = new ControllersDAO();
+        ingredientsObject.setChosenRecipes(obj.getRecipeTitles(ingredientsObject.getIngredients()));
     }
         @Override
         public void initialize (URL url, ResourceBundle rb){
+
     }
 }

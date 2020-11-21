@@ -27,5 +27,17 @@ public class RecipePhotos {
         img = new ImageView(image);
         return img;
     }
-
+    public static Image passBackImage(String str) throws FileNotFoundException{
+        if(str.equalsIgnoreCase("Mediterranean Grilled Chicken Salad")){
+            input = new FileInputStream(medSaladPhoto);
+        }
+        //Spicy shrimp tacos with garlic cilantro lime slaw
+        else if(str.equalsIgnoreCase("Spicy shrimp tacos with garlic cilantro lime slaw")){
+            input = new FileInputStream(sTacoPhoto);
+        }else{
+            input = new FileInputStream(sBoil);
+        }
+        image = new Image(input);
+        return image;
+    }
 }

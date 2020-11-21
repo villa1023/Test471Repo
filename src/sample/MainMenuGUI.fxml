@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,7 +20,7 @@
     <children>
         <Accordion layoutY="-2.0" prefHeight="280.0" prefWidth="519.0">
             <panes>
-                <TitledPane alignment="CENTER" animated="false" prefHeight="159.0" prefWidth="519.0" text="Protein" textFill="RED">
+                <TitledPane alignment="BASELINE_LEFT" animated="false" prefHeight="159.0" prefWidth="519.0" text="Protein" textFill="#070606">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="525.0">
                             <children>
@@ -42,12 +42,15 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
                 </TitledPane>
-                <TitledPane alignment="CENTER" animated="false" text="Fruits-Vegetables" textFill="#189a27">
+                <TitledPane alignment="BASELINE_LEFT" animated="false" text="Fruits-Vegetables">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <FlowPane fx:id="vegFlowPane" layoutX="20.0" layoutY="19.0" prefHeight="142.0" prefWidth="478.0">
+                                <FlowPane fx:id="vegFlowPane" layoutX="26.0" layoutY="3.0" prefHeight="145.0" prefWidth="466.0">
                                     <children>
                                         <RadioButton fx:id="broccli" mnemonicParsing="false" onAction="#updateIngredients" prefHeight="17.0" prefWidth="112.0" text="Broccli" />
                                         <RadioButton fx:id="corn" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Corn" />
@@ -69,8 +72,11 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
                 </TitledPane>
-                <TitledPane alignment="CENTER" animated="false" prefHeight="125.0" prefWidth="371.0" text="Carbs" textFill="#977403">
+                <TitledPane alignment="BASELINE_LEFT" animated="false" prefHeight="125.0" prefWidth="371.0" text="Carbs">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="136.0" prefWidth="367.0">
                             <children>
@@ -91,8 +97,11 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
                 </TitledPane>
-                <TitledPane alignment="CENTER" animated="false" contentDisplay="CENTER" prefHeight="205.0" prefWidth="525.0" text="Sauce-Other">
+                <TitledPane alignment="BASELINE_LEFT" animated="false" contentDisplay="CENTER" prefHeight="205.0" prefWidth="525.0" text="Sauce-Other">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="136.0" prefWidth="367.0">
                             <children>
@@ -100,13 +109,34 @@
                                     <children>
                                         <FlowPane fx:id="saucesFlowPane" layoutX="-2.0" layoutY="-2.0" prefHeight="150.0" prefWidth="487.0">
                                             <children>
-                                                <RadioButton fx:id="teriyaki" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Teriyaki" />
-                                                <RadioButton fx:id="curry" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Curry" />
-                                                <RadioButton fx:id="alfredo" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Alfredo" />
-                                                <RadioButton fx:id="tomato" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Tomato" />
-                                                <RadioButton fx:id="olive_oil" minHeight="112.0" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Olive oil" />
-                                                <RadioButton fx:id="vinegar" minHeight="112.0" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Vinegar" />
-                                                <RadioButton fx:id="cheese" minHeight="112.0" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Cheese" />
+                                                <RadioButton fx:id="teriyaki" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Teriyaki">
+                                       <effect>
+                                          <Glow />
+                                       </effect></RadioButton>
+                                                <RadioButton fx:id="curry" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Curry">
+                                       <effect>
+                                          <Glow />
+                                       </effect></RadioButton>
+                                                <RadioButton fx:id="alfredo" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Alfredo">
+                                       <effect>
+                                          <Glow />
+                                       </effect></RadioButton>
+                                                <RadioButton fx:id="tomato" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Tomato">
+                                       <effect>
+                                          <Glow />
+                                       </effect></RadioButton>
+                                                <RadioButton fx:id="olive_oil" minHeight="112.0" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Olive oil">
+                                       <effect>
+                                          <Glow />
+                                       </effect></RadioButton>
+                                                <RadioButton fx:id="vinegar" minHeight="112.0" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Vinegar">
+                                       <effect>
+                                          <Glow />
+                                       </effect></RadioButton>
+                                                <RadioButton fx:id="cheese" minHeight="112.0" mnemonicParsing="false" onAction="#updateIngredients" prefWidth="112.0" text="Cheese">
+                                       <effect>
+                                          <Glow />
+                                       </effect></RadioButton>
                                             </children>
                                         </FlowPane>
                                     </children>
@@ -117,29 +147,31 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
                 </TitledPane>
             </panes>
         </Accordion>
         <Pane layoutX="371.0" layoutY="3.0" prefHeight="500.0" prefWidth="0.0" />
-        <ButtonBar layoutX="235.0" layoutY="544.0" prefHeight="40.0" prefWidth="270.0">
-         <buttons>
-                <MenuButton alignment="CENTER" minHeight="20.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: #40E0D0;" text="Options" textFill="#fcf5f5">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#clearTable2" text="Clear table" />
-                        <MenuItem fx:id="done1" mnemonicParsing="false" onAction="#loadSecond" text="Search recipes" />
-                    </items>
-               <font>
-                  <Font name="Corbel Bold" size="15.0" />
-               </font>
-                </MenuButton>
-         </buttons>
-        </ButtonBar>
         <HBox layoutX="1.0" layoutY="318.0" prefHeight="203.0" prefWidth="519.0">
             <children>
-                <ListView fx:id="pro" prefHeight="203.0" prefWidth="135.0" />
-                <ListView fx:id="veg" prefHeight="203.0" prefWidth="129.0" />
-                <ListView fx:id="carbs" prefHeight="203.0" prefWidth="124.0" />
-                <ListView fx:id="sauces" prefHeight="203.0" prefWidth="131.0" />
+                <ListView fx:id="pro" prefHeight="203.0" prefWidth="135.0">
+               <effect>
+                  <SepiaTone />
+               </effect></ListView>
+                <ListView fx:id="veg" prefHeight="203.0" prefWidth="129.0">
+               <effect>
+                  <SepiaTone />
+               </effect></ListView>
+                <ListView fx:id="carbs" prefHeight="203.0" prefWidth="124.0">
+               <effect>
+                  <SepiaTone />
+               </effect></ListView>
+                <ListView fx:id="sauces" prefHeight="203.0" prefWidth="129.0">
+               <effect>
+                  <SepiaTone />
+               </effect></ListView>
             </children>
         </HBox>
         <TextField alignment="CENTER" layoutX="1.0" layoutY="278.0" prefHeight="40.0" prefWidth="135.0" text="Protein">
@@ -175,5 +207,20 @@
             </effect>
         </TextField>
       <TitledPane animated="false" layoutX="-222.0" layoutY="368.0" text="untitled" />
+      <Button layoutX="30.0" layoutY="536.0" mnemonicParsing="false" onAction="#goBack" prefHeight="24.0" prefWidth="78.0" style="-fx-background-color: #FA8072;" text="🢀 Back" textFill="WHITE">
+         <font>
+            <Font name="Corbel Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="221.0" layoutY="536.0" mnemonicParsing="false" onAction="#clearTable2" style="-fx-background-color: #ff6666;" text="❌ Clear " textFill="WHITE">
+         <font>
+            <Font name="Corbel Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="395.0" layoutY="536.0" mnemonicParsing="false" onAction="#loadSecond" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: #000080;" text=" ✅ Done" textFill="WHITE">
+         <font>
+            <Font name="Corbel Bold" size="15.0" />
+         </font>
+      </Button>
     </children>
 </Pane>
