@@ -13,7 +13,7 @@ public class Main extends Application {
         //Con_1.getConnection();
         try {
             //Parent root = FXMLLoader.load(getClass().getResource("MainMenuGUI.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("MainMenuGUI.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("LoginScreenGUI.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("iCook");
             primaryStage.setScene(scene);

@@ -16,7 +16,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fx:id="img1" fitHeight="144.0" fitWidth="498.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="aboutICook" fitHeight="144.0" fitWidth="498.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToAboutICook"/>
          </children>
       </GridPane>
       <GridPane layoutX="10.0" layoutY="229.0" prefHeight="142.0" prefWidth="497.0">
@@ -27,7 +27,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fx:id="img2" fitHeight="144.0" fitWidth="498.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="enterIngredients" fitHeight="144.0" fitWidth="498.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToEnterIngredients"/>
          </children>
       </GridPane>
       <GridPane layoutX="10.0" layoutY="427.0" prefHeight="142.0" prefWidth="497.0">
@@ -38,7 +38,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fx:id="img3" fitHeight="144.0" fitWidth="498.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="viewPantry" fitHeight="144.0" fitWidth="498.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToViewPantry"/>
          </children>
       </GridPane>
    </children>
