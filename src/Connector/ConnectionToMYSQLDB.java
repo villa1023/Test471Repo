@@ -196,6 +196,7 @@ public class ConnectionToMYSQLDB {
     }
     public static Connection getConnectionToRecipes() throws Exception{
         try{
+            //
             String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://localhost:3306/recipes"; //server can be seen as local host followed by the name of the schema
             String username = "root"; //username goes here
