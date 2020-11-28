@@ -9,22 +9,29 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginScreenGUIController implements Initializable {
+    //Create the encrypting object that takes in a 16 char value; the final decrypted value will have
+    //a random 16 character string
     CryptographerAES cryptoObject = new CryptographerAES("abcdefghijklmnos");
     @FXML
     TextField username;
     @FXML
     PasswordField password;
+    //Error message will display accordingly based on the scenario
     @FXML
     Text errCompMessage;
-
+    //Data access object to authenticate user or register a user
     ControllersDAO obj = new ControllersDAO();
-
+    //Get the text entered in the user and password fields
+    //Call the encrypt method from the cryptographer class instance on the password
+    //If the retrieve record returns true (the username and password are correct)
+    //Start the new scene calling set user on the instance of the next controller class
+    //This enables the each individual user to access their unique pantry items
+    //If the password isn't correct, prompt the user via error message
     public void login() throws Exception {
         errCompMessage.setText("");
         String user = username.getText();
@@ -37,6 +44,7 @@ public class LoginScreenGUIController implements Initializable {
                 Parent root = loader.load();
                 //Get controller of scene2
                 AfterLoginGUIController firstSceneController = loader.getController();
+                firstSceneController.setUserName(user);
                 //Pass whatever data you want. You can have multiple method calls here
                 //Show scene 2 in new window
                 Stage stage = new Stage();
@@ -53,6 +61,11 @@ public class LoginScreenGUIController implements Initializable {
             errCompMessage.setText("Invalid entry: username or password incorrect.");
         }
     }
+    //Get the user and password text input
+    //As before encrypt the password
+    //If the enter record returns true (The username isn't already taken)
+    //Prompt the user the account creation was successful
+    //Other wise prompt the user the username already exists
     public void register() throws Exception {
         String user = username.getText();
         String pass = password.getText();
@@ -63,26 +76,7 @@ public class LoginScreenGUIController implements Initializable {
             errCompMessage.setText("Username already exists.");
         }
     }
-//    public void registerUser(){
-//        try {
-//            //Load second scene
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterGUI.fxml"));
-//            Parent root = loader.load();
-//            //Get controller of scene2
-//            RegisterGUIController scene2Controller = loader.getController();
-//            //Pass whatever data you want. You can have multiple method calls here
-//            //Show scene 2 in new window
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root));
-//            stage.setTitle("iCook");
-//            stage.show();
-//            ((Stage)username.getScene().getWindow()).close();
-//        } catch (IOException ex) {
-//            System.err.println(ex);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    //Need to implement this method when implementing initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

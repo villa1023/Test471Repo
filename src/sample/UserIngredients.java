@@ -1,5 +1,4 @@
 package sample;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class UserIngredients {
@@ -7,9 +6,24 @@ public class UserIngredients {
     private ArrayList<String> ingredients;
     //chosen recipes
     private ArrayList<String> chosenRecipes;
+    private ArrayList<String> pantryList;
+    private String userName;
+    private String tempRecipe;
     protected UserIngredients(){
         this.ingredients = new ArrayList<>();
         this.chosenRecipes = new ArrayList<>();
+    }
+    protected void setTempRecipe(String recipe){
+        this.tempRecipe = recipe;
+    }
+    protected String getTempRecipe(){
+        return tempRecipe;
+    }
+    protected void setUser(String userName){
+        this.userName = userName;
+    }
+    protected String getUser(){
+        return userName;
     }
     protected void addIngredient(String str){
         ingredients.add(str);
@@ -20,8 +34,17 @@ public class UserIngredients {
     protected void setChosenRecipes(ArrayList<String> chosenList){
         this.chosenRecipes = chosenList;
     }
+    protected void setChosenRecipesForPantry(ArrayList<String> chosenList){
+        this.pantryList = chosenList;
+    }
     protected String getARecipe(int index){
         return chosenRecipes.get(index);
+    }
+    protected String getARecipeFromPantry(int index){
+        return pantryList.get(index);
+    }
+    protected ArrayList<String> getChosenRecipesFromPantry(){
+        return pantryList;
     }
     protected ArrayList<String> getChosenRecipes(){
         return chosenRecipes;

@@ -39,6 +39,9 @@ public class MainMenuGUIController implements Initializable {
         FlowPane saucesFlowPane;
         @FXML
         MenuItem done1;
+        public void setUserName(String user){
+            ingredientsObject.setUser(user);
+        }
         @FXML
         public void updateIngredients () {
         ObservableList<Node> list1 = proteinFlowPane.getChildren();
@@ -129,6 +132,7 @@ public class MainMenuGUIController implements Initializable {
                 Parent root = loader.load();
                 //Get controller of scene2
                 OverviewRecipesGUIController scene2Controller = loader.getController();
+                scene2Controller.setUserName(ingredientsObject.getUser());
                 //Pass whatever data you want. You can have multiple method calls here
                 scene2Controller.setRecipeObject(ingredientsObject);
                 //Show scene 2 in new window
@@ -152,6 +156,7 @@ public class MainMenuGUIController implements Initializable {
             Parent root = loader.load();
             //Get controller of scene2
             AfterLoginGUIController firstSceneController = loader.getController();
+            firstSceneController.setUserName(ingredientsObject.getUser());
             //Pass whatever data you want. You can have multiple method calls here
             //Show scene 2 in new window
             Stage stage = new Stage();

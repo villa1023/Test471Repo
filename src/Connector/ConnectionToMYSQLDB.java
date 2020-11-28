@@ -60,6 +60,68 @@ public class ConnectionToMYSQLDB {
             return null;
         }
     }
+    public static boolean addToPantryTable(String username, String recipeName) throws Exception {
+        Connection con = getConnectionToRecipes();
+        PreparedStatement statement = con.prepareStatement("SELECT * FROM user_recipes WHERE username = ?");
+        statement.setString(1, username);
+        ResultSet result = statement.executeQuery();
+        try {
+            while (result.next()){
+                String desc = result.getString("recipe_name");
+                if(desc.equals(recipeName)){
+                    con.close();
+                    return false;
+                }
+            }
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
+        con.close();
+        Connection connection = getConnectionToRecipes();
+        String sql;
+        sql = "INSERT INTO user_recipes(username, recipe_name) VALUES(?, ?)";
+        statement = connection.prepareStatement(sql);
+        try{
+            statement.setString(1, username);
+            statement.setString(2, recipeName);
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            System.out.println(e.getMessage());
+        }
+        connection.close();
+        return true;
+    }
+    public static ArrayList<String> getDirections(String recipeName) throws Exception {
+        ArrayList<String> chosenRecipes = new ArrayList<>();
+        Connection con = getConnectionToRecipes();
+        PreparedStatement statement = con.prepareStatement("SELECT * FROM recipe_directions WHERE recipe_name = ?");
+        statement.setString(1, recipeName);
+        ResultSet result = statement.executeQuery();
+        String str = "";
+        try {
+            while (result.next()){
+                //do the hyper link here
+                str = "Step ";
+                str += result.getInt("step_number");
+                str += ": ";
+                str += result.getString("directions");
+                str += "\n";
+                String str2 = result.getString("hyperlink");
+                chosenRecipes.add(str);
+                if(str2 != null){
+                    chosenRecipes.add(str2);
+                }
+            }
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
+        con.close();
+        return chosenRecipes;
+    }
      public static ArrayList<String> getRecipeFromIngredients(ArrayList<String> obj) throws Exception {
         ArrayList<Integer> chosenRecipes = new ArrayList<>();
         Connection con = getConnectionToRecipes();
@@ -79,15 +141,16 @@ public class ConnectionToMYSQLDB {
             con.close();
             return getRecipeFromId(chosenRecipes);
       }
-    public static boolean registerUser(String user, String pass) throws Exception {
+    public static boolean registerUser(String user, String pass, int id) throws Exception {
         Connection connection = getConnectionToRecipes();
         String sql;
         PreparedStatement statement;
-        sql = "INSERT INTO user_info(username, password) VALUES(?, ?)";
+        sql = "INSERT INTO user_info(username, password, user_id) VALUES(?, ?, ?)";
         statement = connection.prepareStatement(sql);
         try{
         statement.setString(1, user);
         statement.setString(2, pass);
+        statement.setInt(3, id);
         statement.executeUpdate();
 
         } catch (SQLException se) {
@@ -102,9 +165,9 @@ public class ConnectionToMYSQLDB {
     }
     public static boolean checkUser(String user) throws Exception {
         Connection con = getConnectionToRecipes();
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM user_info WHERE username = ?");
-            statement.setString(1, user);
-            ResultSet result = statement.executeQuery();
+        PreparedStatement statement = con.prepareStatement("SELECT * FROM user_info WHERE username = ?");
+        statement.setString(1, user);
+        ResultSet result = statement.executeQuery();
             try {
                 while (result.next()){
                     String desc = result.getString("username");
@@ -174,7 +237,7 @@ public class ConnectionToMYSQLDB {
                     iD = result.getInt("recipe_id");
                     desc = result.getString("description");
                     author = result.getString("author");
-                    finalReturnList.add("Recipe: " + desc);
+                    finalReturnList.add(desc);
                     finalReturnList.add("Author: " + author);
                     finalReturnList.add(" ");
                     finalReturnList.add("Ingredients: ");
@@ -188,11 +251,22 @@ public class ConnectionToMYSQLDB {
         result = statement2.executeQuery();
         while(result.next()){
             desc = result.getString("quantity");
-            desc += "\t";
+            desc += " ";
             desc += result.getString("ing_name");
             finalReturnList.add(desc);
         }
         return finalReturnList;
+    }
+    public static ArrayList<String> getAllRecipesForPantry(String user) throws Exception {
+        Connection con2 = getConnectionToRecipes();
+        PreparedStatement statement2 = con2.prepareStatement("SELECT * FROM user_recipes WHERE username = ?");
+        statement2.setString(1, user);
+        ResultSet result = statement2.executeQuery();
+        ArrayList<String> recipeList = new ArrayList<>();
+        while(result.next()){
+            recipeList.add(result.getString("recipe_name"));
+        }
+        return recipeList;
     }
     public static Connection getConnectionToRecipes() throws Exception{
         try{
@@ -200,7 +274,7 @@ public class ConnectionToMYSQLDB {
             String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://localhost:3306/recipes"; //server can be seen as local host followed by the name of the schema
             String username = "root"; //username goes here
-            String password = ""; //your password goes here
+            String password = "Keepyoheadup760!"; //your password goes here
             Connection connect = DriverManager.getConnection(url, username, password);
             System.out.println("Connected!");
             return connect;

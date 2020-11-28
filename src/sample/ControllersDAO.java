@@ -14,11 +14,30 @@ public class ControllersDAO {
         ArrayList<String> finalList = ConnectionToMYSQLDB.getIngredientsFromRecipe(str);
         return finalList;
     }
+    protected ArrayList<String> getRecipeFromUser(String user) throws Exception {
+        return ConnectionToMYSQLDB.getAllRecipesForPantry(user);
+    }
     protected boolean enterRecord(String user, String pass) throws Exception {
         if(!ConnectionToMYSQLDB.checkUser(user)){
             return false;
         }else{
-            ConnectionToMYSQLDB.registerUser(user, pass);
+            //incase wanting to use in the future, this will generate a random key for each new registered user, stored in the user table.
+            int max = 999999;
+            int min = 1;
+            int random_int = (int)(Math.random() * (max - min + 1) + min);
+            System.out.println(random_int);
+            ConnectionToMYSQLDB.registerUser(user, pass, random_int);
+            return true;
+        }
+    }
+    protected ArrayList<String> getRecipeDirections(String recipeName) throws Exception {
+        return ConnectionToMYSQLDB.getDirections(recipeName);
+    }
+    protected boolean addToUserPantry(String user, String recipe) throws Exception {
+        boolean flag = ConnectionToMYSQLDB.addToPantryTable(user, recipe);
+        if(!flag){
+            return false;
+        }else{
             return true;
         }
     }
