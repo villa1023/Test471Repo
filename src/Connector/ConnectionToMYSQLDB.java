@@ -218,7 +218,7 @@ public class ConnectionToMYSQLDB {
             String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://localhost:3306/recipes"; //server can be seen as local host followed by the name of the schema
             String username = "root"; //username goes here
-            String password = "Keepyoheadup760!"; //your password goes here
+            String password = ""; //your password goes here
             Connection connect = DriverManager.getConnection(url, username, password);
             System.out.println("Connected!");
             return connect;
