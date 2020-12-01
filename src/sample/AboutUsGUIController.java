@@ -18,10 +18,10 @@ public class AboutUsGUIController implements Initializable {
     //Create user ingredients object which will be primarily used to take in the username
     UserIngredients uiObj = new UserIngredients();
     //File input stream objects to take in the images paths stored in the resource folder
-    FileInputStream fstreamObj1 = new FileInputStream("C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\groc.jpg");
-    FileInputStream fstreamObj2 = new FileInputStream("C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\secure.png");
-    FileInputStream fstreamObj3 = new FileInputStream("C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\pantry.jpg");
-    FileInputStream fstreamObj4 = new FileInputStream("C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\diversity3.jpg");
+    FileInputStream fstreamObj1 = new FileInputStream("Resources/groc.jpg");
+    FileInputStream fstreamObj2 = new FileInputStream("Resources/secure.png");
+    FileInputStream fstreamObj3 = new FileInputStream("Resources/pantry.jpg");
+    FileInputStream fstreamObj4 = new FileInputStream("Resources/diversity3.jpg");
     //Pass in the fstream object to create an image
     Image display = new Image(fstreamObj1);
     Image secureImg = new Image(fstreamObj2);

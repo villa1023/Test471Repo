@@ -7,9 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class RecipePhotos {
-    private static String medSaladPhoto = "C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\MedSalad.png";
-    private static String sTacoPhoto = "C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\Staco.png";
-    private static String sBoil = "C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\Sboil.png";
+    private static String medSaladPhoto = "Resources/MedSalad.png";
+    private static String sTacoPhoto = "Resources/Staco.png";
+    private static String sBoil = "Resources/Sboil.png";
     private static Image image;
     private static ImageView img;
     private static FileInputStream input;

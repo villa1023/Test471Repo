@@ -10,9 +10,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Con_1.getConnection();
         try {
-            //Parent root = FXMLLoader.load(getClass().getResource("MainMenuGUI.fxml"));
             Parent root = FXMLLoader.load(getClass().getResource("LoginScreenGUI.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("iCook");

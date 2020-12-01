@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AfterLoginGUIController implements Initializable {
-    FileInputStream fstreamObj1 = new FileInputStream("C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\AboutICook.png");
-    FileInputStream fstreamObj2 = new FileInputStream("C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\EnterIngredients.png");
-    FileInputStream fstreamObj3 = new FileInputStream("C:\\Users\\Owner\\Desktop\\ICookFinal\\Resources\\ViewPantry.png");
+    FileInputStream fstreamObj1 = new FileInputStream("Resources/AboutICook.png");
+    FileInputStream fstreamObj2 = new FileInputStream("Resources/EnterIngredients.png");
+    FileInputStream fstreamObj3 = new FileInputStream("Resources/ViewPantry.png");
     Image topImage = new Image(fstreamObj1);
     Image middleImage = new Image(fstreamObj2);
     Image bottomImage = new Image(fstreamObj3);
@@ -35,6 +35,26 @@ public class AfterLoginGUIController implements Initializable {
     }
     public void setUserName(String userName){
         uiObj.setUser(userName);
+    }
+    public void signOut(){
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScreenGUI.fxml"));
+            Parent root = loader.load();
+            //Get controller of scene2
+            LoginScreenGUIController loginScreenGUI = loader.getController();
+            //Pass whatever data you want. You can have multiple method calls here
+            //Show scene 2 in new window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("iCook");
+            stage.show();
+            ((Stage)aboutICook.getScene().getWindow()).close();
+        } catch (IOException ex) {
+            System.err.println(ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void goToViewPantry() throws Exception {
         String userName = uiObj.getUser();
