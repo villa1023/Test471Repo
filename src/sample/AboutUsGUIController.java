@@ -19,22 +19,10 @@ public class AboutUsGUIController implements Initializable {
     UserIngredients uiObj = new UserIngredients();
     //File input stream objects to take in the images paths stored in the resource folder
     FileInputStream fstreamObj1 = new FileInputStream("Resources/groc.jpg");
-    FileInputStream fstreamObj2 = new FileInputStream("Resources/secure.png");
-    FileInputStream fstreamObj3 = new FileInputStream("Resources/pantry.jpg");
-    FileInputStream fstreamObj4 = new FileInputStream("Resources/diversity3.jpg");
     //Pass in the fstream object to create an image
     Image display = new Image(fstreamObj1);
-    Image secureImg = new Image(fstreamObj2);
-    Image pantryImg = new Image(fstreamObj3);
-    Image divImg = new Image(fstreamObj4);
     @FXML
     ImageView aboutICook;
-    @FXML
-    ImageView security;
-    @FXML
-    ImageView pantry;
-    @FXML
-    ImageView diversity;
     //set the username to be passed to the next class the user navigates to
     public void setUser(String user){
         uiObj.setUser(user);
@@ -71,8 +59,5 @@ public class AboutUsGUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         aboutICook.setImage(display);
-        security.setImage(secureImg);
-        pantry.setImage(pantryImg);
-        diversity.setImage(divImg);
     }
 }

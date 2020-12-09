@@ -47,4 +47,13 @@ public class ControllersDAO {
         }
         return false;
     }
+    protected boolean deleteFromUserPantry(String user, String recipe) throws Exception {
+        boolean flag = ConnectionToMYSQLDB.checkIfEntryExists(user, recipe);
+        if (!flag) {
+            return false;
+        } else {
+            ConnectionToMYSQLDB.deleteFromPantry(user, recipe);
+            return true;
+        }
+    }
 }

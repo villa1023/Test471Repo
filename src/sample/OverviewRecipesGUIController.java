@@ -19,6 +19,12 @@ public class OverviewRecipesGUIController implements Initializable {
     public ListView listView;
     ControllersDAO dataObject = new ControllersDAO();
     UserIngredients obj2 = new UserIngredients();
+    public void setPageName(String name){
+        obj2.setPrevPage(name);
+    }
+    public void setBackObjects(String image, ArrayList<String> ingList, ArrayList<String> dirListBack){
+        obj2.initializeBackItems(image, ingList, dirListBack);
+    }
     public void setUserName(String userName){
         obj2.setUser(userName);
     }
@@ -28,7 +34,6 @@ public class OverviewRecipesGUIController implements Initializable {
     public void setRecipeObjectForPantry(UserIngredients obj1){
         obj2.setChosenRecipesForPantry(obj1.getChosenRecipesFromPantry());
     }
-
     @FXML
     public void selectRecipe() throws Exception {
         ObservableList<Object> list1 = listView.getSelectionModel().getSelectedItems();
@@ -84,19 +89,39 @@ public class OverviewRecipesGUIController implements Initializable {
     @FXML
     public void goBack(){
         try {
-            //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
-            Parent root = loader.load();
-            //Get controller of scene2
-            MainMenuGUIController scene1Controller = loader.getController();
-            scene1Controller.setUserName(obj2.getUser());
-            //Pass whatever data you want. You can have multiple method calls here
-            //Show scene 2 in new window
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("iCook");
-            stage.show();
-            ((Stage)listView.getScene().getWindow()).close();
+            if(obj2.getPrevPage().equals("MainMenuGUIController")){
+                //Load second scene
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuGUI.fxml"));
+                Parent root = loader.load();
+                //Get controller of scene2
+                MainMenuGUIController scene1Controller = loader.getController();
+                scene1Controller.setUserName(obj2.getUser());
+                //Pass whatever data you want. You can have multiple method calls here
+                //Show scene 2 in new window
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("iCook");
+                stage.show();
+                ((Stage)listView.getScene().getWindow()).close();
+            }else if(obj2.getPrevPage().equals("AfterLoginGUIController")){
+                //Load second scene
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("AfterLoginGUI.fxml"));
+                Parent root = loader.load();
+                AfterLoginGUIController firstSceneController = loader.getController();
+                firstSceneController.setUserName(obj2.getUser());
+                //Get controller of scene2
+                AfterLoginGUIController scene1Controller = loader.getController();
+                scene1Controller.setUserName(obj2.getUser());
+                //Pass whatever data you want. You can have multiple method calls here
+                //Show scene 2 in new window
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("iCook");
+                stage.show();
+                ((Stage)listView.getScene().getWindow()).close();
+            }else{
+                goToFinal(obj2.getReturnImage(), obj2.getIngredientList(), obj2.getDirections());
+            }
         } catch (IOException ex) {
             System.err.println(ex);
         } catch (Exception e) {
@@ -112,6 +137,7 @@ public class OverviewRecipesGUIController implements Initializable {
             //Get controller of scene2
             DisplayFinalRecipeController scene3Controller = loader.getController();
             scene3Controller.setUserName(obj2.getUser());
+            scene3Controller.setBackObjects(str,strList,directions);
             //Pass whatever data you want. You can have multiple method calls here
             scene3Controller.initializeScene(str);
             scene3Controller.fillIngredientsAndDirections(strList, directions);

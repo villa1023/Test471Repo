@@ -7,11 +7,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,8 +36,6 @@ public class MainMenuGUIController implements Initializable {
         FlowPane carbsFlowPane;
         @FXML
         FlowPane saucesFlowPane;
-        @FXML
-        MenuItem done1;
         public void setUserName(String user){
             ingredientsObject.setUser(user);
         }
@@ -134,6 +132,7 @@ public class MainMenuGUIController implements Initializable {
                 scene2Controller.setUserName(ingredientsObject.getUser());
                 //Pass whatever data you want. You can have multiple method calls here
                 scene2Controller.setRecipeObject(ingredientsObject);
+                scene2Controller.setPageName("MainMenuGUIController");
                 //Show scene 2 in new window
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));

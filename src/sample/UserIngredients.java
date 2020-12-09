@@ -9,9 +9,19 @@ public class UserIngredients {
     private ArrayList<String> pantryList;
     private String userName;
     private String tempRecipe;
+    private String prevPage;
+    private String imageGoingBack;
+    private ArrayList<String> ingredientListGoingBack;
+    private ArrayList<String> directionListGoingBack;
     protected UserIngredients(){
         this.ingredients = new ArrayList<>();
         this.chosenRecipes = new ArrayList<>();
+    }
+    protected void setPrevPage(String page) {
+        this.prevPage = page;
+    }
+    protected String getPrevPage() {
+        return prevPage;
     }
     protected void setTempRecipe(String recipe){
         this.tempRecipe = recipe;
@@ -51,5 +61,19 @@ public class UserIngredients {
     }
     protected void deleteAll(){
         ingredients.clear();
+    }
+    protected void initializeBackItems(String imageGoingBack, ArrayList<String> ingredientListGoingBack, ArrayList<String> directionListGoingBack){
+        this.imageGoingBack = imageGoingBack;
+        this.ingredientListGoingBack = ingredientListGoingBack;
+        this.directionListGoingBack = directionListGoingBack;
+    }
+    protected String getReturnImage(){
+        return imageGoingBack;
+    }
+    protected ArrayList<String> getIngredientList(){
+        return ingredientListGoingBack;
+    }
+    protected ArrayList<String> getDirections(){
+        return directionListGoingBack;
     }
 }

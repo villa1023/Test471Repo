@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AfterLoginGUIController implements Initializable {
-    FileInputStream fstreamObj1 = new FileInputStream("Resources/AboutICook.png");
-    FileInputStream fstreamObj2 = new FileInputStream("Resources/EnterIngredients.png");
-    FileInputStream fstreamObj3 = new FileInputStream("Resources/ViewPantry.png");
+    FileInputStream fstreamObj1 = new FileInputStream("Resources/About_iCook_final.png");
+    FileInputStream fstreamObj2 = new FileInputStream("Resources/Enter_Ingredients_final.png");
+    FileInputStream fstreamObj3 = new FileInputStream("Resources/View_Cookbook_final.png");
+    FileInputStream fstreamObj4 = new FileInputStream("Resources/Main_Menu_logo.png");
     Image topImage = new Image(fstreamObj1);
     Image middleImage = new Image(fstreamObj2);
     Image bottomImage = new Image(fstreamObj3);
+    Image menuLogoImage = new Image(fstreamObj4);
     ControllersDAO dataAO = new ControllersDAO();
     UserIngredients uiObj = new UserIngredients();
     @FXML
@@ -30,7 +32,8 @@ public class AfterLoginGUIController implements Initializable {
     ImageView enterIngredients;
     @FXML
     ImageView viewPantry;
-
+    @FXML
+    ImageView menuLogo;
     public AfterLoginGUIController() throws FileNotFoundException {
     }
     public void setUserName(String userName){
@@ -68,6 +71,7 @@ public class AfterLoginGUIController implements Initializable {
             OverviewRecipesGUIController overviewRecipesGUIControllerObj = loader.getController();
             overviewRecipesGUIControllerObj.setRecipeObjectForPantry(uiObj);
             overviewRecipesGUIControllerObj.setUserName(uiObj.getUser());
+            overviewRecipesGUIControllerObj.setPageName("AfterLoginGUIController");
             //Pass whatever data you want. You can have multiple method calls here
             //Show scene 2 in new window
             Stage stage = new Stage();
@@ -132,5 +136,6 @@ public class AfterLoginGUIController implements Initializable {
         aboutICook.setImage(topImage);
         enterIngredients.setImage(middleImage);
         viewPantry.setImage(bottomImage);
+        menuLogo.setImage(menuLogoImage);
     }
 }

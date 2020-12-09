@@ -201,6 +201,19 @@ public class ConnectionToMYSQLDB {
         }
         return finalReturnList;
     }
+    public static boolean deleteFromPantry(String username, String recipe) throws Exception {
+        Connection con = getConnectionToRecipes();
+        PreparedStatement statement = con.prepareStatement("DELETE FROM user_recipes WHERE username = ? and recipe_name = ?");
+        statement.setString(1, username);
+        statement.setString(2, recipe);
+        try{
+            statement.executeUpdate();
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
+        con.close();
+        return true;
+    }
     public static ArrayList<String> getAllRecipesForPantry(String user) throws Exception {
         Connection con2 = getConnectionToRecipes();
         PreparedStatement statement2 = con2.prepareStatement("SELECT * FROM user_recipes WHERE username = ?");
@@ -211,6 +224,26 @@ public class ConnectionToMYSQLDB {
             recipeList.add(result.getString("recipe_name"));
         }
         return recipeList;
+    }
+    public static boolean checkIfEntryExists(String username, String recipeName) throws Exception {
+        Connection con = getConnectionToRecipes();
+        PreparedStatement statement = con.prepareStatement("SELECT * FROM user_recipes WHERE username = ?");
+        statement.setString(1, username);
+        ResultSet result = statement.executeQuery();
+        try {
+            while (result.next()){
+                String user = result.getString("username");
+                String recipe = result.getString("recipe_name");
+                if(user.equals(username) && recipe.equals(recipeName)){
+                    con.close();
+                    return true;
+                }
+            }
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
+        con.close();
+        return false;
     }
     public static Connection getConnectionToRecipes() throws Exception{
         try{

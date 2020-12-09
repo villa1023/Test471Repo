@@ -37,15 +37,26 @@ public class DisplayFinalRecipeController implements Initializable {
 //    final int initialVal = 1;
 //    SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,5,initialVal);
     UserIngredients obj3 = new UserIngredients();
+    public void setBackObjects(String image, ArrayList<String> ingList, ArrayList<String> dirListBack){
+        obj3.initializeBackItems(image, ingList, dirListBack);
+    }
     public void setUserName(String userName){
         obj3.setUser(userName);
     }
     public void addToPantry() throws Exception {
         boolean flag = daoObj.addToUserPantry(obj3.getUser(), obj3.getTempRecipe());
         if(!flag){
-            message.setText("This recipe already exists in your pantry.");
+            message.setText("This recipe already exists in your cookcook.");
         }else{
-            message.setText("Successfully added to pantry!");
+            message.setText("Successfully added to your cookbook!");
+        }
+    }
+    public void deleteRecipe() throws Exception {
+        boolean flag = daoObj.deleteFromUserPantry(obj3.getUser(), obj3.getTempRecipe());
+        if(!flag){
+            message.setText("This recipe doesn't exist in your cookbook.");
+        }else{
+            message.setText("Successfully deleted from the cookbook!");
         }
     }
     public void setRecipeObject(UserIngredients obj2){
@@ -67,7 +78,34 @@ public class DisplayFinalRecipeController implements Initializable {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-
+    }
+    public void goToPantry() throws Exception {
+        String userName = obj3.getUser();
+        ArrayList<String> recipeList = daoObj.getRecipeFromUser(userName);
+        obj3.setChosenRecipesForPantry(recipeList);
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("OverviewRecipesGUI.fxml"));
+            Parent root = loader.load();
+            //Get controller of scene2
+            OverviewRecipesGUIController overviewRecipesGUIControllerObj = loader.getController();
+            overviewRecipesGUIControllerObj.setRecipeObjectForPantry(obj3);
+            overviewRecipesGUIControllerObj.setUserName(obj3.getUser());
+            overviewRecipesGUIControllerObj.setBackObjects(obj3.getReturnImage(),obj3.getIngredientList(),obj3.getDirections());
+            overviewRecipesGUIControllerObj.setPageName("DisplayFinalRecipeController");
+            //Pass whatever data you want. You can have multiple method calls here
+            //Show scene 2 in new window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("iCook");
+            stage.show();
+            overviewRecipesGUIControllerObj.fillListWithPantryItems();
+            ((Stage)recipeIngredients.getScene().getWindow()).close();
+        } catch (IOException ex) {
+            System.err.println(ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void goToWebPage(){
@@ -137,8 +175,10 @@ public class DisplayFinalRecipeController implements Initializable {
             //Get controller of scene2
             OverviewRecipesGUIController scene3Controller = loader.getController();
             scene3Controller.setUserName(obj3.getUser());
+            scene3Controller.setBackObjects(obj3.getReturnImage(),obj3.getIngredientList(),obj3.getDirections());
             //Pass whatever data you want. You can have multiple method calls here
             scene3Controller.setRecipeObject(obj3);
+            scene3Controller.setPageName("DisplayFinalRecipeGUIController");
             //Show scene 2 in new window
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
