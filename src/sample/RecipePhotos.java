@@ -1,11 +1,14 @@
 package sample;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+/*
+    Recipe photos class is used to display the images stored in the resource folder
+    The string representation of the recipe is passed into the class methods
+    Based on what was passed in, the correct relative path is selected
+    and either the image view or the image is passed back
+*/
 public class RecipePhotos {
     private static String medSaladPhoto = "Resources/MedSalad.png";
     private static String sTacoPhoto = "Resources/Staco.png";

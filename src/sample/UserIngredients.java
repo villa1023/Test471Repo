@@ -1,10 +1,13 @@
 package sample;
 import java.util.ArrayList;
-
+/*
+    UserIngredients class is used to hold the username, recipe, directions and ingredient lists with their corresponding getters and setters
+    Based on whatever the scenario is, the following data members are crucial to functionality of the application
+    For future use, the class name will need to be changed throughout the java files to something more along the lines of
+    "User Info"
+*/
 public class UserIngredients {
-    //ingredients
     private ArrayList<String> ingredients;
-    //chosen recipes
     private ArrayList<String> chosenRecipes;
     private ArrayList<String> pantryList;
     private String userName;

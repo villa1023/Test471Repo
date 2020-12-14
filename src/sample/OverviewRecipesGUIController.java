@@ -8,20 +8,26 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+/*
+    This controls the recipes selection page (after the user enters ingredients)
+    and the user pantry.
+*/
 public class OverviewRecipesGUIController implements Initializable {
     @FXML
     public ListView listView;
+    //DAO needed to query data
     ControllersDAO dataObject = new ControllersDAO();
     UserIngredients obj2 = new UserIngredients();
+    //Previous page name needed to know where to navigate back to after user clicks "back" button
     public void setPageName(String name){
         obj2.setPrevPage(name);
     }
+    //back objects needed if the page being navigated back to is the display final recipe page
+    //these are the elements of the page which are the image, the ingredient list, and the directions list
     public void setBackObjects(String image, ArrayList<String> ingList, ArrayList<String> dirListBack){
         obj2.initializeBackItems(image, ingList, dirListBack);
     }
@@ -128,6 +134,8 @@ public class OverviewRecipesGUIController implements Initializable {
             e.printStackTrace();
         }
     }
+    //The elements containing the image name, recipe list, and directions are passed to the display final recipes
+    //controller class
     @FXML
     public void goToFinal(String str, ArrayList<String> strList, ArrayList<String> directions){
         try {
@@ -136,10 +144,14 @@ public class OverviewRecipesGUIController implements Initializable {
             Parent root = loader.load();
             //Get controller of scene2
             DisplayFinalRecipeController scene3Controller = loader.getController();
+            //sets the username to be utilized
             scene3Controller.setUserName(obj2.getUser());
+            //back object method is called containing the data specified above
             scene3Controller.setBackObjects(str,strList,directions);
             //Pass whatever data you want. You can have multiple method calls here
+            //initialize scene is called to set the image object
             scene3Controller.initializeScene(str);
+            //fills the list view with the ingredient list and directions list
             scene3Controller.fillIngredientsAndDirections(strList, directions);
             //scene3Controller.setRecipeDirections(directions);
             scene3Controller.setRecipeObject(obj2);
@@ -155,6 +167,7 @@ public class OverviewRecipesGUIController implements Initializable {
             e.printStackTrace();
         }
     }
+    //need to implement this method in order to implement the initializable interface
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

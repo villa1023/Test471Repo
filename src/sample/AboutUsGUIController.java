@@ -1,5 +1,4 @@
 package sample;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +12,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/*
+    Controls the about us page
+*/
 public class AboutUsGUIController implements Initializable {
     //Create user ingredients object which will be primarily used to take in the username
     UserIngredients uiObj = new UserIngredients();
@@ -43,6 +44,8 @@ public class AboutUsGUIController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setTitle("iCook");
             stage.show();
+            //Use any FXML object to reference the scene and close it, otherwise the window will stay open while the other is
+            //being used.
             ((Stage)aboutICook.getScene().getWindow()).close();
         } catch (IOException ex) {
             System.err.println(ex);

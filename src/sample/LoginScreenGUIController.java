@@ -1,5 +1,4 @@
 package sample;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,13 +10,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/*
+    Controls log in portion of the application, effectively enabling the user to log in or register an account
+*/
 public class LoginScreenGUIController implements Initializable {
     //Create the encrypting object that takes in a 16 char value; the final decrypted value will have
     //a random 16 character string
@@ -36,10 +36,9 @@ public class LoginScreenGUIController implements Initializable {
     ImageView logo;
     //Data access object to authenticate user or register a user
     ControllersDAO obj = new ControllersDAO();
-
+    //Constructor is needed to throw the FNFE, containing the images relative path
     public LoginScreenGUIController() throws FileNotFoundException {
     }
-
     //Get the text entered in the user and password fields
     //Call the encrypt method from the cryptographer class instance on the password
     //If the retrieve record returns true (the username and password are correct)
@@ -90,7 +89,8 @@ public class LoginScreenGUIController implements Initializable {
             errCompMessage.setText("Username already exists.");
         }
     }
-    //Need to implement this method when implementing initializable
+    //Sets the image after stage has already been set
+    //Also required when implementing Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logo.setImage(iCookLogoImage);

@@ -1,13 +1,11 @@
 package sample;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-//import Connector.ConnectionToMYSQLDB;
 public class Main extends Application {
+    //Required to override, to effectively set the first scene
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
