@@ -270,11 +270,12 @@ public class ConnectionToMYSQLDB {
     //Inform the user if successful, otherwise the connection is unsuccessful
     public static Connection getConnectionToRecipes() throws Exception{
         try{
-            //
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/recipes"; //server can be seen as local host followed by the name of the schema
+            String url = "jdbc:mysql://127.0.0.1:3306/recipes"; //server can be seen as local host followed by the name of the schema
+            //String url = "jdbc:mysql://192.168.86.20:3306/recipes";
             String username = "root"; //username goes here
-            String password = ""; //your password goes here
+            //String username = "new_user1";
+            String password = "password"; //your password goes here
             Connection connect = DriverManager.getConnection(url, username, password);
             System.out.println("Connected!");
             return connect;
