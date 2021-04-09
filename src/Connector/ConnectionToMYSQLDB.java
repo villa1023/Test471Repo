@@ -280,7 +280,7 @@ public class ConnectionToMYSQLDB {
             System.out.println("Connected!");
             return connect;
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println(e + "test");
         }
         return null;
     }
