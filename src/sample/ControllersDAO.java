@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /*
     Data access object serves as an intermediate between the controller and the connection class
 */
-public class ControllersDAO {
+public class ControllersDAO implements Cloneable{
     //Retrieves recipe titles based on the ingredient list specified by user
     protected ArrayList<String> getRecipeTitles(ArrayList<String> ingredientList) throws Exception {
         ArrayList<String> recipeString = ConnectionToMYSQLDB.getRecipeFromIngredients(ingredientList);
@@ -74,5 +74,8 @@ public class ControllersDAO {
             ConnectionToMYSQLDB.deleteFromPantry(user, recipe);
             return true;
         }
+    }
+    protected boolean checkAdmin(String user) throws Exception {
+        return ConnectionToMYSQLDB.checkAdministrator(user);
     }
 }

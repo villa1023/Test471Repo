@@ -6,7 +6,7 @@ import java.util.ArrayList;
     For future use, the class name will need to be changed throughout the java files to something more along the lines of
     "User Info"
 */
-public class UserIngredients {
+public class UserIngredients{
     private ArrayList<String> ingredients;
     private ArrayList<String> chosenRecipes;
     private ArrayList<String> pantryList;

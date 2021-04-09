@@ -97,12 +97,13 @@ public class ConnectionToMYSQLDB {
         Connection connection = getConnectionToRecipes();
         String sql;
         PreparedStatement statement;
-        sql = "INSERT INTO user_info(username, password, user_id) VALUES(?, ?, ?)";
+        sql = "INSERT INTO user_info(username, password, user_id, admin) VALUES(?, ?, ?, ?)";
         statement = connection.prepareStatement(sql);
         try{
         statement.setString(1, user);
         statement.setString(2, pass);
         statement.setInt(3, id);
+        statement.setInt(4, 0);
         statement.executeUpdate();
         } catch (SQLException se) {
             //Handle errors for JDBC
@@ -229,6 +230,17 @@ public class ConnectionToMYSQLDB {
         con.close();
         return true;
     }
+    public static boolean checkAdministrator(String user) throws Exception {
+        Connection con = getConnectionToRecipes();
+        PreparedStatement statement = con.prepareStatement("SELECT * FROM user_info WHERE username = ? and admin = ?" );
+        statement.setString(1, user);
+        statement.setInt(2, 1);
+        ResultSet result = statement.executeQuery();
+        while (result.next()){
+            return true;
+        }
+        return false;
+    }
     //get all recipes when compared against the username
     //return the list of recipes back to the caller
     public static ArrayList<String> getAllRecipesForPantry(String user) throws Exception {
@@ -270,11 +282,10 @@ public class ConnectionToMYSQLDB {
     //Inform the user if successful, otherwise the connection is unsuccessful
     public static Connection getConnectionToRecipes() throws Exception{
         try{
-            //
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/recipes"; //server can be seen as local host followed by the name of the schema
+            String url = "jdbc:mysql://127.0.0.1:3306/recipes"; //server can be seen as local host followed by the name of the schema
             String username = "root"; //username goes here
-            String password = ""; //your password goes here
+            String password = "password"; //your password goes here
             Connection connect = DriverManager.getConnection(url, username, password);
             System.out.println("Connected!");
             return connect;

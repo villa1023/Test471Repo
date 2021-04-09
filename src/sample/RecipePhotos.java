@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
     Based on what was passed in, the correct relative path is selected
     and either the image view or the image is passed back
 */
-public class RecipePhotos {
+public class RecipePhotos{
     private static String medSaladPhoto = "Resources/MedSalad.png";
     private static String sTacoPhoto = "Resources/Staco.png";
     private static String sBoil = "Resources/Sboil.png";

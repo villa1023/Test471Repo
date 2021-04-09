@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /*
     Controls log in portion of the application, effectively enabling the user to log in or register an account
 */
-public class LoginScreenGUIController implements Initializable {
+public class LoginScreenGUIController implements Initializable, Cloneable {
     //Create the encrypting object that takes in a 16 char value; the final decrypted value will have
     //a random 16 character string
     CryptographerAES cryptoObject = new CryptographerAES("abcdefghijklmnos");
@@ -52,19 +52,34 @@ public class LoginScreenGUIController implements Initializable {
         pass = cryptoObject.encrypt(pass);
         if(obj.retrieveRecord(user,pass)){
             try {
-                //Load second scene
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("AfterLoginGUI.fxml"));
-                Parent root = loader.load();
-                //Get controller of scene2
-                AfterLoginGUIController firstSceneController = loader.getController();
-                firstSceneController.setUserName(user);
-                //Pass whatever data you want. You can have multiple method calls here
-                //Show scene 2 in new window
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("iCook");
-                stage.show();
-                ((Stage)username.getScene().getWindow()).close();
+                System.out.println("" + obj.checkAdmin(user));
+                if(obj.checkAdmin(user)){
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminBuildRecipe.fxml"));
+                    Parent root = loader.load();
+                    //Get controller of scene2
+                    AdminBuildRecipeController firstSceneController = loader.getController();
+                    //Pass whatever data you want. You can have multiple method calls here
+                    //Show scene 2 in new window
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("iCook");
+                    stage.show();
+                    ((Stage)username.getScene().getWindow()).close();
+                }else{
+                    //Load second scene
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("AfterLoginGUI.fxml"));
+                    Parent root = loader.load();
+                    //Get controller of scene2
+                    AfterLoginGUIController firstSceneController = loader.getController();
+                    firstSceneController.setUserName(user);
+                    //Pass whatever data you want. You can have multiple method calls here
+                    //Show scene 2 in new window
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("iCook");
+                    stage.show();
+                    ((Stage)username.getScene().getWindow()).close();
+                }
             } catch (IOException ex) {
                 System.err.println(ex);
             } catch (Exception e) {

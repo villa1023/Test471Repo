@@ -52,6 +52,8 @@ public class AfterLoginGUIController implements Initializable {
         try {
             //Load second scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginScreenGUI.fxml"));
+            //FXMLLoader loader = new FXMLLoader();
+            loader.getClassLoader().getResource("LoginScreenGUI.fxml");
             Parent root = loader.load();
             //Get controller of scene2
             LoginScreenGUIController loginScreenGUI = loader.getController();
