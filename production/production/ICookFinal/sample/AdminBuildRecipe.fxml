@@ -46,14 +46,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <CheckBox layoutX="23.0" layoutY="45.0" mnemonicParsing="false" text="Protein" />
-                        <CheckBox layoutX="126.0" layoutY="47.0" mnemonicParsing="false" text="Fruits-Veg" />
-                        <CheckBox layoutX="249.0" layoutY="47.0" mnemonicParsing="false" text="Carbs" />
-                        <CheckBox layoutX="351.0" layoutY="45.0" mnemonicParsing="false" text="Sauce-other" />
-                        <TextField layoutX="26.0" layoutY="112.0" promptText="Quantity" />
-                        <TextField layoutX="226.0" layoutY="112.0" promptText="Ingredient name" />
-                        <ListView layoutX="26.0" layoutY="208.0" prefHeight="345.0" prefWidth="479.0" />
-                        <Button layoutX="418.0" layoutY="112.0" mnemonicParsing="false" onAction="#addRAToFlow" style="-fx-background-color: #24a0ed; -fx-background-radius: 5em;" text="Add (+)" textFill="#f8f8f8">
+                        <CheckBox fx:id="Protein" layoutX="23.0" layoutY="45.0" mnemonicParsing="false" text="Protein" />
+                        <CheckBox fx:id="Fruits_veg" layoutX="126.0" layoutY="47.0" mnemonicParsing="false" text="Fruits-Veg" />
+                        <CheckBox fx:id="Carbs" layoutX="249.0" layoutY="47.0" mnemonicParsing="false" text="Carbs" />
+                        <CheckBox fx:id="Sauce_other" layoutX="351.0" layoutY="45.0" mnemonicParsing="false" text="Sauce-other" />
+                        <TextField fx:id="quant" layoutX="26.0" layoutY="112.0" promptText="Quantity" />
+                        <TextField fx:id="ingName" layoutX="226.0" layoutY="112.0" promptText="Ingredient name" />
+                        <ListView fx:id="display" layoutX="26.0" layoutY="208.0" prefHeight="345.0" prefWidth="479.0" />
+                        <Button layoutX="418.0" layoutY="112.0" mnemonicParsing="false" onAction="#addToIngFlow" style="-fx-background-color: #24a0ed; -fx-background-radius: 5em;" text="Add (+)" textFill="#f8f8f8">
                            <font>
                               <Font name="Arial Black" size="12.0" />
                            </font>
@@ -65,14 +65,14 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="525.0">
                      <children>
-                        <TextField layoutX="15.0" layoutY="52.0" prefHeight="52.0" prefWidth="502.0" promptText="Add directions here" />
-                        <Button layoutX="231.0" layoutY="114.0" mnemonicParsing="false" onAction="#addRAToFlow" style="-fx-background-color: #24a0ed; -fx-background-radius: 5em;" text="Add (+)" textFill="#f8f8f8">
+                        <TextField fx:id="directions" layoutX="15.0" layoutY="52.0" prefHeight="52.0" prefWidth="502.0" promptText="Add directions here" />
+                        <Button layoutX="231.0" layoutY="114.0" mnemonicParsing="false" onAction="#addToDirectionView" style="-fx-background-color: #24a0ed; -fx-background-radius: 5em;" text="Add (+)" textFill="#f8f8f8">
                            <font>
                               <Font name="Arial Black" size="12.0" />
                            </font>
                         </Button>
-                        <ListView layoutX="45.0" layoutY="157.0" prefHeight="291.0" prefWidth="435.0" />
-                        <Button layoutX="397.0" layoutY="470.0" mnemonicParsing="false" onAction="#addRAToFlow" style="-fx-background-color: #24a0ed; -fx-background-radius: 5em;" text="Submit" textFill="#f8f8f8">
+                        <ListView fx:id="directionView" layoutX="45.0" layoutY="157.0" prefHeight="291.0" prefWidth="435.0" />
+                        <Button layoutX="397.0" layoutY="470.0" mnemonicParsing="false" onAction="#addToDB" style="-fx-background-color: #24a0ed; -fx-background-radius: 5em;" text="Submit" textFill="#f8f8f8">
                            <font>
                               <Font name="Arial Black" size="12.0" />
                            </font>
