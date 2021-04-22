@@ -7,6 +7,9 @@ public class RecipeBuilder {
     private List<String> ingredientList;
     private String title;
     private String author;
+    private int primaryRecipeDirections;
+    private int primaryRecipeID;
+    private int primaryIngredientID;
 
     public RecipeBuilder setDirectionList(List<String> directionList) {
         this.directionList = directionList;
@@ -42,6 +45,33 @@ public class RecipeBuilder {
 
     public String getTitle() {
         return title;
+    }
+
+    public RecipeBuilder setPrimaryIngredientID(int primaryIngredientID) {
+        this.primaryIngredientID = primaryIngredientID;
+        return this;
+    }
+
+    public int getPrimaryIngredientID() {
+        return primaryIngredientID;
+    }
+
+    public RecipeBuilder setPrimaryRecipeDirections(int primaryRecipeDirections) {
+        this.primaryRecipeDirections = primaryRecipeDirections;
+        return this;
+    }
+
+    public int getPrimaryRecipeDirections() {
+        return primaryRecipeDirections;
+    }
+
+    public RecipeBuilder setPrimaryRecipeID(int primaryRecipeID) {
+        this.primaryRecipeID = primaryRecipeID;
+        return this;
+    }
+
+    public int getPrimaryRecipeID() {
+        return primaryRecipeID;
     }
 
     public Recipe build(){

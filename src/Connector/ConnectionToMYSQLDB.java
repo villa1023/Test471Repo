@@ -1,6 +1,8 @@
 package Connector;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+
 /*
     Queries and inserts data to and from the recipe schema of the MySQL database
 */
@@ -276,6 +278,106 @@ public class ConnectionToMYSQLDB {
         }
         con.close();
         return false;
+    }
+    public static ArrayList<Integer> getMaxes() throws Exception {
+        int rDirections = 0;
+        int maxRID = 0;
+        int maxIngID = 0;
+        ArrayList<Integer> listMaxes = new ArrayList<>();
+        try{
+            Connection con = getConnectionToRecipes();
+            //Max PK of recipe directions
+            PreparedStatement statement = con.prepareStatement("SELECT MAX(pmary) as 'Pmary_Max' FROM recipe_directions");
+            //Max PK of recipe
+            PreparedStatement statement2 = con.prepareStatement("SELECT MAX(recipe_id) as 'Recipe_ID' FROM recipe");
+            //Max PK of ingredients
+            PreparedStatement statement3 = con.prepareStatement("SELECT MAX(ingredient_id) as 'Ing_ID' FROM ingredients");
+            ResultSet result = statement.executeQuery();
+            ResultSet result2 = statement2.executeQuery();
+            ResultSet result3 = statement3.executeQuery();
+            result.next();
+            rDirections = result.getInt("Pmary_Max");
+            result2.next();
+            maxRID = result2.getInt("Recipe_ID");
+            result3.next();
+            maxIngID = result3.getInt("Ing_ID");
+            listMaxes.add(rDirections);
+            listMaxes.add(maxRID);
+            listMaxes.add(maxIngID);
+            con.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return listMaxes;
+    }
+    public boolean insertIntoRecipesAdmin(int recipeID, String desc, String author) throws Exception {
+//        for(String str: stringList){
+//            String[] Res = str.split("\\s+");
+//        }
+        Connection connection = getConnectionToRecipes();
+        String sql;
+        PreparedStatement statement;
+        sql = "INSERT INTO recipe(recipe_id, description, author) VALUES(?, ?, ?)";
+        statement = connection.prepareStatement(sql);
+        try{
+            statement.setInt(1, recipeID);
+            statement.setString(2, desc);
+            statement.setString(3, author);
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            System.out.println(e.getMessage());
+        }
+        connection.close();
+        return true;
+    }
+    public static boolean insertIntoRecipeDirectionsAdmin(int stepNum, String dir, int pri, String recipeName) throws Exception {
+        Connection connection = getConnectionToRecipes();
+        String sql;
+        PreparedStatement statement;
+        sql = "INSERT INTO recipe_directions(step_number, directions, pmary, recipe_name) VALUES(?, ?, ?, ?)";
+        statement = connection.prepareStatement(sql);
+        try{
+            statement.setInt(1, stepNum);
+            statement.setString(2, dir);
+            statement.setInt(3, pri);
+            statement.setString(4, recipeName);
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            System.out.println(e.getMessage());
+        }
+        connection.close();
+        return true;
+    }
+    public static boolean insertIntoRecipeIngredientsAdmin(int ingID, String ingType, String quant, String ing_name, int recipeID) throws Exception {
+        Connection connection = getConnectionToRecipes();
+        String sql;
+        PreparedStatement statement;
+        sql = "INSERT INTO recipe_directions(ingredient_id, ing_type, quantity, ing_name, recipe_id) VALUES(?, ?, ?, ?, ?)";
+        statement = connection.prepareStatement(sql);
+        try{
+            statement.setInt(1, ingID);
+            statement.setString(2, ingType);
+            statement.setString(3, quant);
+            statement.setString(4, ing_name);
+            statement.setInt(5, recipeID);
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            System.out.println(e.getMessage());
+        }
+        connection.close();
+        return true;
     }
     //Most important method of the class
     //Establishes the connection to the recipe schema for the following methods to utilize
