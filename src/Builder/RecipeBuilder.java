@@ -4,7 +4,9 @@ import java.util.List;
 
 public class RecipeBuilder {
     private List<String> directionList;
-    private List<String> ingredientList;
+    private List<String> ingredientTypeList;
+    private List<String> ingredientNameList;
+    private List<String> ingredientQuantityList;
     private String title;
     private String author;
     private int primaryRecipeDirections;
@@ -16,8 +18,18 @@ public class RecipeBuilder {
         return this;
     }
 
-    public RecipeBuilder setIngredientList(List<String> ingredientList) {
-        this.ingredientList = ingredientList;
+    public RecipeBuilder setIngredientTypeList(List<String> ingredientTypeList) {
+        this.ingredientTypeList = ingredientTypeList;
+        return this;
+    }
+
+    public RecipeBuilder setIngredientNameList(List<String> ingredientNameList) {
+        this.ingredientNameList = ingredientNameList;
+        return this;
+    }
+
+    public RecipeBuilder setIngredientQuantityList(List<String> ingredientQuantityList) {
+        this.ingredientQuantityList = ingredientQuantityList;
         return this;
     }
 
@@ -25,8 +37,16 @@ public class RecipeBuilder {
         return directionList;
     }
 
-    public List<String> getIngredientList() {
-        return ingredientList;
+    public List<String> getIngredientTypeList() {
+        return ingredientTypeList;
+    }
+
+    public List<String> getIngredientNameList() {
+        return ingredientNameList;
+    }
+
+    public List<String> getIngredientQuantityList() {
+        return ingredientQuantityList;
     }
 
     public String getAuthor() {

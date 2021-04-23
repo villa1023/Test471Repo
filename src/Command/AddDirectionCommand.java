@@ -3,7 +3,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import java.util.List;
-
 public class AddDirectionCommand extends AbstractCommand{
     private String direction;
     private MenuItem menuItem;
@@ -32,6 +31,7 @@ public class AddDirectionCommand extends AbstractCommand{
     public String getDirection(){
         return direction;
     }
+    @Override
     public String toString(){
         if(direction.length() > 7) {
             return "Dir: " + direction.substring(0, direction.length() - 4);

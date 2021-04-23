@@ -4,7 +4,9 @@ import java.util.List;
 
 public class Recipe {
     private final List<String> directionList;
-    private final List<String> ingredientList;
+    private final List<String> ingredientTypeList;
+    private final List<String> ingredientNameList;
+    private final List<String> ingredientQuantityList;
     private final String title;
     private final String author;
     private int primaryRecipeDirections;
@@ -13,7 +15,9 @@ public class Recipe {
 
     public Recipe(RecipeBuilder builder){
         this.directionList = builder.getDirectionList();
-        this.ingredientList = builder.getIngredientList();
+        this.ingredientTypeList = builder.getIngredientTypeList();
+        this.ingredientNameList = builder.getIngredientNameList();
+        this.ingredientQuantityList = builder.getIngredientQuantityList();
         this.title = builder.getTitle();
         this.author = builder.getAuthor();
         this.primaryRecipeDirections = builder.getPrimaryRecipeDirections();
@@ -28,11 +32,19 @@ public class Recipe {
         //ConnectionToMYSQLDB.insertIntoRecipesAdmin(int recipeID, String desc, String author)
         builder.append("Ingredients: " + "\n");
         //ConnectionToMYSQLDB.insertIntoRecipesAdmin
-        for(int i = 0; i < ingredientList.size(); i++){
+        //Does not matter what list we use, they will all be of the same length
+        String buildString = "";
+        for(int i = 0; i < ingredientQuantityList.size(); i++){
             //ConnectionToMYSQLDB.insertIntoRecipeIngredientsAdmin(int ingID, String ingType, String quant, String ing_name, int recipeID)
+            buildString += ingredientTypeList.get(i);
+            buildString += " ";
+            buildString += ingredientNameList.get(i);
+            buildString += " ";
+            buildString += ingredientQuantityList.get(i);
             builder.append("Ingredient ID: " + (primaryIngredientID + i));
-            builder.append("\t\t" + ingredientList.get(i));
+            builder.append("\t\t" + buildString);
             builder.append("\t\t" + "Recipe ID" + primaryRecipeID + "\n");
+            buildString = "";
         }
         builder.append("Directions: " + "\n");
         for(int i = 0; i < directionList.size(); i++){
