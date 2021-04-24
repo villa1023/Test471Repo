@@ -76,16 +76,14 @@ public class AdminBuildRecipeController {
                 errorAlert.setContentText("Cannot add empty name or quantity.");
                 errorAlert.showAndWait();
             }else{
-                //Pass in the text for the direction and the current command manager
-                //AddDirectionCommand directionCommand = new AddDirectionCommand(directions.getText(), commandManager);
-                Utility_Factory_Method utility_factory_method = new Utility_Factory_Method();
-                CommandFactoryIF utility = utility_factory_method.createCommandFactoryObject();
+                //Create the CommandFactoryIF object
+                CommandFactoryIF utility = Utility_Factory_Method.createCommandFactoryObject();
+                //Create an arraylist to pass in to the arguments of type, name and quant.
                 ArrayList<String> ingL = new ArrayList<>();
-                ingL.add(typeIng);
-                ingL.add(ingName.getText());
-                ingL.add(quant.getText());
-                CommandIF commandIF = (CommandIF) utility.createCommand("Ingredient", ingL, commandManager);
-                //AddIngredientCommand ingredientCommand = new AddIngredientCommand(typeIng, ingName.getText(), quant.getText(), commandManager);
+                ingL.add(typeIng); ingL.add(ingName.getText()); ingL.add(quant.getText());
+                //Get your command object masked as an commandIF class, pass in your arguments, regarding what object your requesting
+                //Here we want an ingredient object
+                CommandIF commandIF = utility.createCommand("Ingredient", ingL, commandManager);
                 //Create new menu item (The string for the add command we just created)
                 MenuItem menuItem = new MenuItem();
                 //Set the text of the menu item to the toString of the command
@@ -135,10 +133,8 @@ public class AdminBuildRecipeController {
             errorAlert.setContentText("Cannot add empty direction");
             errorAlert.showAndWait();
         }else{
-            //Pass in the text for the direction and the current command manager
-            //AddDirectionCommand directionCommand = new AddDirectionCommand(directions.getText(), commandManager);
-            Utility_Factory_Method utility_factory_method = new Utility_Factory_Method();
-            CommandFactoryIF utility = utility_factory_method.createCommandFactoryObject();
+            //Section pretty much mirrors what is happening above, except for the direction now instead of ingredient
+            CommandFactoryIF utility = Utility_Factory_Method.createCommandFactoryObject();
             ArrayList<String> dList = new ArrayList<>();
             dList.add(directions.getText());
             CommandIF commandIF = (CommandIF) utility.createCommand("Direction", dList, commandManager);
