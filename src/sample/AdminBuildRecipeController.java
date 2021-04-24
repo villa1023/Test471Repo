@@ -1,9 +1,7 @@
 package sample;
 import Builder.Recipe;
 import Builder.RecipeBuilder;
-import Command.AbstractCommand;
-import Command.AddDirectionCommand;
-import Command.CommandManager;
+import Command_and_FactoryMethod.*;
 import Connector.ConnectionToMYSQLDB;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,12 +9,9 @@ import javafx.scene.text.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 public class AdminBuildRecipeController {
     private Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     private List<String> directionList = new ArrayList<>();
-    private List<String> ingredientList = new ArrayList<>();
-    //Need to use there instead of ingredient list
     private List<String> ingredientType = new ArrayList<>();
     private List<String> ingredientName = new ArrayList<>();
     private List<String> ingredientQuantity = new ArrayList<>();
@@ -28,17 +23,13 @@ public class AdminBuildRecipeController {
     @FXML
     TextArea authorArea, titleArea;
     @FXML
-    TextField quant, ingName;
+    TextField quant, ingName, directions;
     @FXML
-    ListView ingListV, quantListV, ingNameListV;
+    ListView ingredientListView, directionView;
     @FXML
     CheckBox Protein, Fruits_veg, Carbs, Sauce_other;
     @FXML
-    TextField directions;
-    @FXML
-    ListView directionView;
-    @FXML
-    MenuButton commandDirection;
+    MenuButton commandDirection, commandIngredient;
     @FXML
     public void addRAToFlow(){
         String raRecipeTitle = recipeTitle.getText();
@@ -85,11 +76,55 @@ public class AdminBuildRecipeController {
                 errorAlert.setContentText("Cannot add empty name or quantity.");
                 errorAlert.showAndWait();
             }else{
-                ingListV.getItems().add(typeIng);
-                ingNameListV.getItems().add(ingName.getText());
-                quantListV.getItems().add(quant.getText());
-                //display.getItems().add("Ing. type: " + typeIng + "\t\tIng. name: " + ingName.getText() + "\t\tIng. quant: " + quant.getText());
-                ingredientList.add(typeIng + " " + ingName.getText() + " " + quant.getText());
+                //Pass in the text for the direction and the current command manager
+                //AddDirectionCommand directionCommand = new AddDirectionCommand(directions.getText(), commandManager);
+                Utility_Factory_Method utility_factory_method = new Utility_Factory_Method();
+                CommandFactoryIF utility = utility_factory_method.createCommandFactoryObject();
+                ArrayList<String> ingL = new ArrayList<>();
+                ingL.add(typeIng);
+                ingL.add(ingName.getText());
+                ingL.add(quant.getText());
+                CommandIF commandIF = (CommandIF) utility.createCommand("Ingredient", ingL, commandManager);
+                //AddIngredientCommand ingredientCommand = new AddIngredientCommand(typeIng, ingName.getText(), quant.getText(), commandManager);
+                //Create new menu item (The string for the add command we just created)
+                MenuItem menuItem = new MenuItem();
+                //Set the text of the menu item to the toString of the command
+                menuItem.setText(commandIF.toString());
+                //Need to set the current menu item to access the index later on for deletion from list
+                commandIF.setMenuItem(menuItem);
+                //Set an action listener for on click, call the undo command method
+                menuItem.setOnAction(event -> {
+                    commandIF.undo(commandIngredient, ingredientListView);
+                    //We need to make sure every time we add or delete anything or direction list corresponds with out changes
+                    //This way we can have a check that ensures the client does not add any empty data set to the DB
+                    ingredientType.clear();
+                    ingredientName.clear();
+                    ingredientQuantity.clear();
+                    List<AbstractCommand> commandTypeList = commandManager.getAddIngredientCommandList();
+                    for(int i = 0; i < commandTypeList.size(); i++){
+                        ingredientName.add(((AddIngredientCommand)commandTypeList.get(i)).getName());
+                        ingredientType.add(((AddIngredientCommand)commandTypeList.get(i)).getType());
+                        ingredientQuantity.add(((AddIngredientCommand)commandTypeList.get(i)).getQuantity());
+                    }
+                });
+                //Add the current command we just added to the command manager
+                commandManager.addIngredientCommand(commandIF);
+                //Add the command string to the list view
+                //directionView.getItems().add(directions.getText());
+                ingredientListView.getItems().add("Ing. type: " + typeIng + "\t\tIng. name: " + ingName.getText() + "\t\tIng. quant: " + quant.getText());
+                //Finally add to the menu item the command we just created (since this is the most recent)
+                commandIngredient.getItems().add(0, menuItem);
+                //We need to make sure every time we add or delete anything or direction list corresponds with out changes
+                //This way we can have a check that ensures the client does not add any empty data set to the DB
+                ingredientType.clear();
+                ingredientName.clear();
+                ingredientQuantity.clear();
+                List<AbstractCommand> commandTypeList = commandManager.getAddIngredientCommandList();
+                for(int i = 0; i < commandTypeList.size(); i++){
+                    ingredientName.add(((AddIngredientCommand)commandTypeList.get(i)).getName());
+                    ingredientType.add(((AddIngredientCommand)commandTypeList.get(i)).getType());
+                    ingredientQuantity.add(((AddIngredientCommand)commandTypeList.get(i)).getQuantity());
+                }
             }
         }
     }
@@ -101,16 +136,21 @@ public class AdminBuildRecipeController {
             errorAlert.showAndWait();
         }else{
             //Pass in the text for the direction and the current command manager
-            AddDirectionCommand directionCommand = new AddDirectionCommand(directions.getText(), commandManager);
+            //AddDirectionCommand directionCommand = new AddDirectionCommand(directions.getText(), commandManager);
+            Utility_Factory_Method utility_factory_method = new Utility_Factory_Method();
+            CommandFactoryIF utility = utility_factory_method.createCommandFactoryObject();
+            ArrayList<String> dList = new ArrayList<>();
+            dList.add(directions.getText());
+            CommandIF commandIF = (CommandIF) utility.createCommand("Direction", dList, commandManager);
             //Create new menu item (The string for the add command we just created)
             MenuItem menuItem = new MenuItem();
             //Set the text of the menu item to the toString of the command
-            menuItem.setText(directionCommand.toString());
+            menuItem.setText(commandIF.toString());
             //Need to set the current menu item to access the index later on for deletion from list
-            directionCommand.setMenuItem(menuItem);
+            commandIF.setMenuItem(menuItem);
             //Set an action listener for on click, call the undo command method
             menuItem.setOnAction(event -> {
-                directionCommand.undo(commandDirection, directionView);
+                commandIF.undo(commandDirection, directionView);
                 //We need to make sure every time we add or delete anything or direction list corresponds with out changes
                 //This way we can have a check that ensures the client does not add any empty data set to the DB
                 directionList.clear();
@@ -120,7 +160,7 @@ public class AdminBuildRecipeController {
                 }
             });
             //Add the current command we just added to the command manager
-            commandManager.addDirectionCommand(directionCommand);
+            commandManager.addDirectionCommand(commandIF);
             //Add the command string to the list view
             directionView.getItems().add(directions.getText());
             //Finally add to the menu item the command we just created (since this is the most recent)
@@ -137,7 +177,7 @@ public class AdminBuildRecipeController {
     @FXML
     public void addToDB() throws Exception {
         //Check if all fields are not empty i.e. no empty insertions into DB
-        if(authorRec != null || title != null || !directionList.isEmpty() || !ingredientList.isEmpty()){
+        if(authorRec != null || title != null || !directionList.isEmpty() || !ingredientType.isEmpty()){
             //Get the max primary keys, since they are auto incremented this works
             ArrayList<Integer> maxList = ConnectionToMYSQLDB.getMaxes();
             //Just add 1 to each to satisfy the new values
@@ -146,7 +186,7 @@ public class AdminBuildRecipeController {
             int primaryIngredientID = maxList.get(2) + 1;
             //Build the recipeBuilder object
             Recipe recipeBuilder = new RecipeBuilder().setAuthor(authorRec).setTitle(title).
-                    setDirectionList(directionList).setIngredientList(ingredientList).
+                    setDirectionList(directionList).setIngredientTypeList(ingredientType).setIngredientNameList(ingredientName).setIngredientQuantityList(ingredientQuantity).
                     setPrimaryRecipeDirections(primaryRecipeDirections).setPrimaryIngredientID(primaryIngredientID).setPrimaryRecipeID(primaryRecipeID).build();
             //Confirm with the user if they would like to continue
             //This is the last check before adding to DB

@@ -1,4 +1,4 @@
-package Command;
+package Command_and_FactoryMethod;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -38,6 +38,7 @@ public class AddDirectionCommand extends AbstractCommand{
         }
         return "Dir: " + direction;
     }
+    @Override
     public void setMenuItem(MenuItem menuItem){
         this.menuItem = menuItem;
     }

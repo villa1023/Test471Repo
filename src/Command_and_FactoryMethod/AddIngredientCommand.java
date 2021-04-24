@@ -1,4 +1,4 @@
-package Command;
+package Command_and_FactoryMethod;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -49,6 +49,7 @@ public class AddIngredientCommand extends AbstractCommand{
     public String getQuantity(){
         return quantity;
     }
+    @Override
     public void setMenuItem(MenuItem menuItem){
         this.menuItem = menuItem;
     }

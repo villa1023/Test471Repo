@@ -1,4 +1,4 @@
-package Command;
+package Command_and_FactoryMethod;
 import java.util.ArrayList;
 import java.util.List;
 public class CommandManager {
@@ -8,11 +8,13 @@ public class CommandManager {
         addDirectionCommandList = new ArrayList<AbstractCommand>();
         addIngredientCommandList = new ArrayList<AbstractCommand>();
     }
-    public void addIngredientCommand(AbstractCommand addIngredientCommand){
-        addIngredientCommandList.add(addIngredientCommand);
+    public void addIngredientCommand(CommandIF addIngredientCommand){
+        AbstractCommand aI = (AbstractCommand) addIngredientCommand;
+        addIngredientCommandList.add(aI);
     }
-    public void addDirectionCommand(AbstractCommand currentCommand){
-        addDirectionCommandList.add(currentCommand);
+    public void addDirectionCommand(CommandIF addDirectionCommand){
+        AbstractCommand aD = (AbstractCommand) addDirectionCommand;
+        addDirectionCommandList.add(aD);
     }
     public List<AbstractCommand> getAddDirectionCommandList(){
         return addDirectionCommandList;
