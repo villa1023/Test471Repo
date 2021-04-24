@@ -16,11 +16,33 @@ public class CommandManager {
         AbstractCommand aD = (AbstractCommand) addDirectionCommand;
         addDirectionCommandList.add(aD);
     }
-    public List<AbstractCommand> getAddDirectionCommandList(){
-        return addDirectionCommandList;
+    public List<String> getDirectionList(){
+        List<String> directionList = new ArrayList<>();
+        for(CommandIF commandName: addDirectionCommandList){
+            directionList.add(((AddDirectionCommand)commandName).getDirection());
+        }
+        return directionList;
     }
-    public List<AbstractCommand> getAddIngredientCommandList(){
-        return addIngredientCommandList;
+    public List<String> getNameForIngredient(){
+        List<String> nameList = new ArrayList<>();
+        for(CommandIF commandName: addIngredientCommandList){
+            nameList.add(((AddIngredientCommand)commandName).getName());
+        }
+        return nameList;
+    }
+    public List<String> getTypeForIngredient(){
+        List<String> nameList = new ArrayList<>();
+        for(CommandIF commandName: addIngredientCommandList){
+            nameList.add(((AddIngredientCommand)commandName).getType());
+        }
+        return nameList;
+    }
+    public List<String> getQuanForIngredient(){
+        List<String> nameList = new ArrayList<>();
+        for(CommandIF commandName: addIngredientCommandList){
+            nameList.add(((AddIngredientCommand)commandName).getQuantity());
+        }
+        return nameList;
     }
     public void updateAddDirectionCommandList(int index){
         //Need to remove up until the size minus the index
@@ -41,6 +63,14 @@ public class CommandManager {
         for(int i = addIngredientCommandList.size() - 1; i >= newIndex; i--){
             addIngredientCommandList.remove(i);
         }
+    }
+    //These methods will be package private so no other classes outside of the factory-command classes will not be able to use them
+    //In other words even though the client is using this class, they will not be able to use these methods
+    List<AbstractCommand> getAddDirectionCommandList(){
+        return addDirectionCommandList;
+    }
+    List<AbstractCommand> getAddIngredientCommandList(){
+        return addIngredientCommandList;
     }
 
 }

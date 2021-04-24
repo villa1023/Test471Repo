@@ -95,15 +95,9 @@ public class AdminBuildRecipeController {
                     commandIF.undo(commandIngredient, ingredientListView);
                     //We need to make sure every time we add or delete anything or direction list corresponds with out changes
                     //This way we can have a check that ensures the client does not add any empty data set to the DB
-                    ingredientType.clear();
-                    ingredientName.clear();
-                    ingredientQuantity.clear();
-                    List<AbstractCommand> commandTypeList = commandManager.getAddIngredientCommandList();
-                    for(int i = 0; i < commandTypeList.size(); i++){
-                        ingredientName.add(((AddIngredientCommand)commandTypeList.get(i)).getName());
-                        ingredientType.add(((AddIngredientCommand)commandTypeList.get(i)).getType());
-                        ingredientQuantity.add(((AddIngredientCommand)commandTypeList.get(i)).getQuantity());
-                    }
+                    ingredientName = commandManager.getNameForIngredient();
+                    ingredientType = commandManager.getTypeForIngredient();
+                    ingredientQuantity = commandManager.getQuanForIngredient();
                 });
                 //Add the current command we just added to the command manager
                 commandManager.addIngredientCommand(commandIF);
@@ -114,15 +108,9 @@ public class AdminBuildRecipeController {
                 commandIngredient.getItems().add(0, menuItem);
                 //We need to make sure every time we add or delete anything or direction list corresponds with out changes
                 //This way we can have a check that ensures the client does not add any empty data set to the DB
-                ingredientType.clear();
-                ingredientName.clear();
-                ingredientQuantity.clear();
-                List<AbstractCommand> commandTypeList = commandManager.getAddIngredientCommandList();
-                for(int i = 0; i < commandTypeList.size(); i++){
-                    ingredientName.add(((AddIngredientCommand)commandTypeList.get(i)).getName());
-                    ingredientType.add(((AddIngredientCommand)commandTypeList.get(i)).getType());
-                    ingredientQuantity.add(((AddIngredientCommand)commandTypeList.get(i)).getQuantity());
-                }
+                ingredientName = commandManager.getNameForIngredient();
+                ingredientType = commandManager.getTypeForIngredient();
+                ingredientQuantity = commandManager.getQuanForIngredient();
             }
         }
     }
@@ -149,11 +137,7 @@ public class AdminBuildRecipeController {
                 commandIF.undo(commandDirection, directionView);
                 //We need to make sure every time we add or delete anything or direction list corresponds with out changes
                 //This way we can have a check that ensures the client does not add any empty data set to the DB
-                directionList.clear();
-                List<AbstractCommand> commandList = commandManager.getAddDirectionCommandList();
-                for(int i = 0; i < commandList.size(); i++){
-                    directionList.add(((AddDirectionCommand)commandList.get(i)).getDirection());
-                }
+                directionList = commandManager.getDirectionList();
             });
             //Add the current command we just added to the command manager
             commandManager.addDirectionCommand(commandIF);
@@ -164,10 +148,7 @@ public class AdminBuildRecipeController {
             //We need to make sure every time we add or delete anything or direction list corresponds with out changes
             //This way we can have a check that ensures the client does not add any empty data set to the DB
             directionList.clear();
-            List<AbstractCommand> commandList = commandManager.getAddDirectionCommandList();
-            for(int i = 0; i < commandList.size(); i++){
-                directionList.add(((AddDirectionCommand)commandList.get(i)).getDirection());
-            }
+            directionList = commandManager.getDirectionList();
         }
     }
     @FXML
