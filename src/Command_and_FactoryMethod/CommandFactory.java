@@ -1,12 +1,6 @@
 package Command_and_FactoryMethod;
 import java.util.ArrayList;
 public class CommandFactory implements CommandFactoryIF{
-//    public AbstractCommand createAddDirectionCommand(String direction, CommandManager commandManager){
-//        return new AddDirectionCommand(direction, commandManager);
-//    }
-//    public AbstractCommand createAddIngredientCommand(String type, String name, String quantity, CommandManager commandManager){
-//        return new AddIngredientCommand(type, name, quantity, commandManager);
-//    }
     @Override
     public CommandIF createCommand(String request, ArrayList<String> type, CommandManager commandManager) {
         //Make sure the type is just a common class here

@@ -29,13 +29,13 @@ public class AddIngredientCommand extends AbstractCommand{
         List<AbstractCommand> addIngredientList = commandManager.getAddIngredientCommandList();
         //Add the new direction string to the list view
         String addString = "";
-        for(int i = 0; i < addIngredientList.size(); i++){
+        for(AbstractCommand command: addIngredientList){
             addString += "Ing. type: ";
-            addString += ((AddIngredientCommand)addIngredientList.get(i)).getType();
+            addString += ((AddIngredientCommand)command).getType();
             addString += "\t\tIng. name: ";
-            addString += ((AddIngredientCommand)addIngredientList.get(i)).getName();
+            addString += ((AddIngredientCommand)command).getName();
             addString += "\t\tIng. quant: ";
-            addString += ((AddIngredientCommand)addIngredientList.get(i)).getQuantity();
+            addString += ((AddIngredientCommand)command).getQuantity();
             ingredientListView.getItems().add(addString);
             addString = "";
         }
@@ -55,6 +55,6 @@ public class AddIngredientCommand extends AbstractCommand{
     }
     @Override
     public String toString() {
-        return quantity + name;
+        return type + "...";
     }
 }

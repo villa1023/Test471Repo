@@ -24,8 +24,8 @@ public class AddDirectionCommand extends AbstractCommand{
         //Get the list after all directions prior were removed
         List<AbstractCommand> addDirectionList = commandManager.getAddDirectionCommandList();
         //Add the new direction string to the list view
-        for(int i = 0; i < addDirectionList.size(); i++){
-            directionListView.getItems().add(((AddDirectionCommand)addDirectionList.get(i)).getDirection());
+        for(AbstractCommand command: addDirectionList){
+            directionListView.getItems().add(((AddDirectionCommand)command).getDirection());
         }
     }
     public String getDirection(){
