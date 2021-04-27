@@ -1,7 +1,7 @@
 package sample;
 import Builder.Recipe;
 import Builder.RecipeBuilder;
-import Command_and_FactoryMethod.*;
+import Command_Factory.*;
 import Connector.ConnectionToMYSQLDB;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -92,6 +92,12 @@ public class AdminBuildRecipeController {
                 commandIF.setMenuItem(menuItem);
                 //Set an action listener for on click, call the undo command method
                 menuItem.setOnAction(event -> {
+                    //update the command manager to remove the items up the index the user requests
+                    /*
+                    **********************************
+                     */
+                    //This might need to change because the client or controller now knows we are removing from the ingredient list
+                    commandManager.updateIngredientCommandList(commandIngredient.getItems().indexOf(menuItem));
                     commandIF.undo(commandIngredient, ingredientListView);
                     //We need to make sure every time we add or delete anything or direction list corresponds with out changes
                     //This way we can have a check that ensures the client does not add any empty data set to the DB
@@ -134,6 +140,7 @@ public class AdminBuildRecipeController {
             commandIF.setMenuItem(menuItem);
             //Set an action listener for on click, call the undo command method
             menuItem.setOnAction(event -> {
+                commandManager.updateAddDirectionCommandList(commandDirection.getItems().indexOf(menuItem));
                 commandIF.undo(commandDirection, directionView);
                 //We need to make sure every time we add or delete anything or direction list corresponds with out changes
                 //This way we can have a check that ensures the client does not add any empty data set to the DB

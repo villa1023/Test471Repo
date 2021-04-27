@@ -1,7 +1,8 @@
-package Command_and_FactoryMethod;
+package Command_Factory;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 public abstract class AbstractCommand implements CommandIF{
+    CommandManager commandManager;
     @Override
     public void undo(MenuButton mb, ListView listView){
         try {

@@ -1,4 +1,4 @@
-package Command_and_FactoryMethod;
+package Command_Factory;
 import java.util.ArrayList;
 import java.util.List;
 public class CommandManager {
@@ -49,7 +49,7 @@ public class CommandManager {
         //Since we want to keep whats at the beginning we must remove backwards
         //However, since the index is technically how many elements we want to remove going backwards
         //All we need to do is subtract the size minus the index and that will be our stopping point
-        int newIndex = addDirectionCommandList.size() - index;
+        int newIndex = (addDirectionCommandList.size() - 1) - index;
         for(int i = addDirectionCommandList.size() - 1; i >= newIndex; i--){
             addDirectionCommandList.remove(i);
         }
@@ -59,18 +59,9 @@ public class CommandManager {
         //Since we want to keep whats at the beginning we must remove backwards
         //However, since the index is technically how many elements we want to remove going backwards
         //All we need to do is subtract the size minus the index and that will be our stopping point
-        int newIndex = addIngredientCommandList.size() - index;
+        int newIndex = (addIngredientCommandList.size() - 1) - index;
         for(int i = addIngredientCommandList.size() - 1; i >= newIndex; i--){
             addIngredientCommandList.remove(i);
         }
     }
-    //These methods will be package private so no other classes outside of the factory-command classes will not be able to use them
-    //In other words even though the client is using this class, they will not be able to use these methods
-    List<AbstractCommand> getAddDirectionCommandList(){
-        return addDirectionCommandList;
-    }
-    List<AbstractCommand> getAddIngredientCommandList(){
-        return addIngredientCommandList;
-    }
-
 }

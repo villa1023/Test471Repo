@@ -1,4 +1,4 @@
-package Command_and_FactoryMethod;
+package Command_Factory;
 import java.util.ArrayList;
 public class CommandFactory implements CommandFactoryIF{
     @Override
