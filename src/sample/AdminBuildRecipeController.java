@@ -83,7 +83,7 @@ public class AdminBuildRecipeController {
                 ingL.add(typeIng); ingL.add(ingName.getText()); ingL.add(quant.getText());
                 //Get your command object masked as an commandIF class, pass in your arguments, regarding what object your requesting
                 //Here we want an ingredient object
-                CommandIF commandIF = utility.createCommand("Ingredient", ingL, commandManager);
+                CommandIF commandIF = utility.createCommand("Ingredient", ingL);
                 //Create new menu item (The string for the add command we just created)
                 MenuItem menuItem = new MenuItem();
                 //Set the text of the menu item to the toString of the command
@@ -131,7 +131,7 @@ public class AdminBuildRecipeController {
             CommandFactoryIF utility = Utility_Factory_Method.createCommandFactoryObject();
             ArrayList<String> dList = new ArrayList<>();
             dList.add(directions.getText());
-            CommandIF commandIF = (CommandIF) utility.createCommand("Direction", dList, commandManager);
+            CommandIF commandIF = (CommandIF) utility.createCommand("Direction", dList);
             //Create new menu item (The string for the add command we just created)
             MenuItem menuItem = new MenuItem();
             //Set the text of the menu item to the toString of the command

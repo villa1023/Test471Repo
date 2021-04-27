@@ -6,7 +6,7 @@ import java.util.List;
 public class AddDirectionCommand extends AbstractCommand{
     private String direction;
     private MenuItem menuItem;
-    public AddDirectionCommand(String direction, CommandManager commandManager){
+    public AddDirectionCommand(String direction){
         this.direction = direction;
     }
     @Override

@@ -7,7 +7,7 @@ public class AddIngredientCommand extends AbstractCommand{
     private String name;
     private String quantity;
     private MenuItem menuItem;
-    public AddIngredientCommand(String type, String name, String quantity, CommandManager commandManager){
+    public AddIngredientCommand(String type, String name, String quantity){
         this.type = type;
         this.name = name;
         this.quantity = quantity;
