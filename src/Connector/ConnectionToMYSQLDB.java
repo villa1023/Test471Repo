@@ -310,7 +310,7 @@ public class ConnectionToMYSQLDB {
         }
         return listMaxes;
     }
-    public boolean insertIntoRecipesAdmin(int recipeID, String desc, String author) throws Exception {
+    public static boolean insertIntoRecipesAdmin(int recipeID, String desc, String author) throws Exception {
 //        for(String str: stringList){
 //            String[] Res = str.split("\\s+");
 //        }
@@ -360,7 +360,7 @@ public class ConnectionToMYSQLDB {
         Connection connection = getConnectionToRecipes();
         String sql;
         PreparedStatement statement;
-        sql = "INSERT INTO recipe_directions(ingredient_id, ing_type, quantity, ing_name, recipe_id) VALUES(?, ?, ?, ?, ?)";
+        sql = "INSERT INTO ingredients(ingredient_id, ing_type, quantity, ing_name, recipe_id) VALUES(?, ?, ?, ?, ?)";
         statement = connection.prepareStatement(sql);
         try{
             statement.setInt(1, ingID);

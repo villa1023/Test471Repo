@@ -152,9 +152,8 @@ public class AdminBuildRecipeController {
             directionView.getItems().add(directions.getText());
             //Finally add to the menu item the command we just created (since this is the most recent)
             commandDirection.getItems().add(0, menuItem);
-            //We need to make sure every time we add or delete anything or direction list corresponds with out changes
+            //We need to make sure every time we add or delete anything our direction list corresponds with out changes
             //This way we can have a check that ensures the client does not add any empty data set to the DB
-            directionList.clear();
             directionList = commandManager.getDirectionList();
         }
     }
@@ -179,9 +178,9 @@ public class AdminBuildRecipeController {
             alert.setContentText(recipeBuilder.toString());
             Optional<ButtonType> result = alert.showAndWait();
             ButtonType button = result.orElse(ButtonType.CANCEL);
-            //This is where we would add an extra method to add
-            //Lay off for now
+           //Final step for inserting after administrator confirms
             if(button == ButtonType.OK){
+                prepDataForDatabase(recipeBuilder);
                 Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
                 errorAlert.setHeaderText("Successfully added to the database");
                 errorAlert.showAndWait();
@@ -192,5 +191,46 @@ public class AdminBuildRecipeController {
             errorAlert.setContentText("Cannot add finalize results with empty fields");
             errorAlert.showAndWait();
         }
+    }
+    public boolean prepDataForDatabase(Recipe builtRecipe){
+        try{
+            ConnectionToMYSQLDB.insertIntoRecipesAdmin(builtRecipe.getPrimaryRecipeID(), builtRecipe.getTitle(), builtRecipe.getAuthor());
+            List<String> ingQList = builtRecipe.getIngredientQuantityList();
+            List<String> ingNList = builtRecipe.getIngredientNameList();
+            List<String> ingTList = builtRecipe.getIngredientTypeList();
+            List<String> dList = builtRecipe.getDirectionList();
+            int primaryIngredientID = builtRecipe.getPrimaryIngredientID();
+            int primaryRecipeDirections = builtRecipe.getPrimaryRecipeDirections();
+            Thread insertIngredients = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i = 0; i < ingQList.size(); i++){
+                        try {
+                            ConnectionToMYSQLDB.insertIntoRecipeIngredientsAdmin(primaryIngredientID + i, ingTList.get(i), ingQList.get(i), ingNList.get(i), builtRecipe.getPrimaryRecipeID());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            Thread insertDirections = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i = 0; i < dList.size(); i++){
+                        try {
+                            ConnectionToMYSQLDB.insertIntoRecipeDirectionsAdmin(i+1, dList.get(i), primaryRecipeDirections + i, builtRecipe.getTitle());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            insertIngredients.start();
+            insertDirections.start();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

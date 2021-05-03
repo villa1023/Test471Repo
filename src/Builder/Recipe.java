@@ -1,7 +1,5 @@
 package Builder;
-
 import java.util.List;
-
 public class Recipe {
     private final List<String> directionList;
     private final List<String> ingredientTypeList;
@@ -9,10 +7,9 @@ public class Recipe {
     private final List<String> ingredientQuantityList;
     private final String title;
     private final String author;
-    private int primaryRecipeDirections;
-    private int primaryRecipeID;
-    private int primaryIngredientID;
-
+    private final int primaryRecipeDirections;
+    private final int primaryRecipeID;
+    private final int primaryIngredientID;
     public Recipe(RecipeBuilder builder){
         this.directionList = builder.getDirectionList();
         this.ingredientTypeList = builder.getIngredientTypeList();
@@ -24,34 +21,63 @@ public class Recipe {
         this.primaryRecipeID = builder.getPrimaryRecipeID();
         this.primaryIngredientID = builder.getPrimaryIngredientID();
     }
+    public List<String> getDirectionList(){
+        return directionList;
+    }
+    public List<String> getIngredientTypeList(){
+        return ingredientTypeList;
+    }
+
+    public List<String> getIngredientQuantityList() {
+        return ingredientQuantityList;
+    }
+
+    public List<String> getIngredientNameList() {
+        return ingredientNameList;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getPrimaryRecipeID() {
+        return primaryRecipeID;
+    }
+
+    public int getPrimaryRecipeDirections() {
+        return primaryRecipeDirections;
+    }
+
+    public int getPrimaryIngredientID() {
+        return primaryIngredientID;
+    }
     public String toString(){
         StringBuilder builder = new StringBuilder();
         builder.append("Title: " + title + "\t\t");
         builder.append("Author: " + author + "\t\t");
         builder.append("Recipe ID: " + primaryRecipeID + "\n");
-        //ConnectionToMYSQLDB.insertIntoRecipesAdmin(int recipeID, String desc, String author)
-        builder.append("Ingredients: " + "\n");
+        builder.append("Ingredients: " + "\n \n");
         //ConnectionToMYSQLDB.insertIntoRecipesAdmin
         //Does not matter what list we use, they will all be of the same length
         String buildString = "";
         for(int i = 0; i < ingredientQuantityList.size(); i++){
-            //ConnectionToMYSQLDB.insertIntoRecipeIngredientsAdmin(int ingID, String ingType, String quant, String ing_name, int recipeID)
             buildString += ingredientTypeList.get(i);
             buildString += " ";
             buildString += ingredientNameList.get(i);
             buildString += " ";
-            buildString += ingredientQuantityList.get(i);
-            builder.append("Ingredient ID: " + (primaryIngredientID + i));
-            builder.append("\t\t" + buildString);
-            builder.append("\t\t" + "Recipe ID" + primaryRecipeID + "\n");
+            buildString += ingredientQuantityList.get(i) + "\n";
+            builder.append(buildString);
             buildString = "";
         }
-        builder.append("Directions: " + "\n");
+        builder.append("\nDirections: " + "\n \n");
         for(int i = 0; i < directionList.size(); i++){
-            //ConnectionToMYSQLDB.insertIntoRecipeDirectionsAdmin(int stepNum, String dir, int pri, String recipeName)
             builder.append("Step number: " + (i+1));
             builder.append("\t\t" + (directionList.get(i)));
-            builder.append("\t\t" + "Primary direction ID: " + (primaryRecipeDirections + i) + "\n");
+            builder.append("\n");
         }
         return builder.toString();
     }
